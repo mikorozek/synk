@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - DATABASE_URL=postgresql://synk_user:synk_password@db:5432/synk_db
+      - NODE_ENV=development
+    command: npm run dev
+    
+  db:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=synk_db
+      - POSTGRES_USER=synk_user
+      - POSTGRES_PASSWORD=synk_password

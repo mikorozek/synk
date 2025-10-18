@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Topic {
+  id      Int    @id @default(autoincrement())
+  prompt  String
+  title   String @db.VarChar(255)
+  
+  events  Event[]
+  sources Source[]
+  
+  @@map("topics")
+}
+
+model Event {
+  id        Int      @id @default(autoincrement())
+  eventUrl  String?  @map("event_url") @db.VarChar(1000)
+  topicId   Int      @map("topic_id")
+  summary   String?
+  title     String   @db.VarChar(500)
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  
+  @@index([topicId])
+  @@index([createdAt(sort: Desc)])
+  @@map("events")
+}
+
+model Source {
+  id        Int    @id @default(autoincrement())
+  topicId   Int    @map("topic_id")
+  sourceUrl String @map("source_url") @db.VarChar(1000)
+  type      String @db.VarChar(100) // RSS, Twitter, Newsletter, etc.
+  
+  topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  
+  @@index([topicId])
+  @@index([type])
+  @@map("sources")
+}
