@@ -46,10 +46,6 @@ export function TopicBoard({
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-balance">{topic.title}</h1>
           <p className="text-muted-foreground text-balance">{topic.prompt}</p>
-          <p className="text-sm text-muted-foreground">
-            Created{" "}
-            {formatDistanceToNow(topic.createdAt, { addSuffix: true })}
-          </p>
         </div>
       </div>
 
