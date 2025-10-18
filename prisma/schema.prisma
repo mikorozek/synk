@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Topic {
-  id      Int    @id @default(autoincrement())
-  prompt  String
-  title   String @db.VarChar(255)
-  
+  id        Int      @id @default(autoincrement())
+  prompt    String
+  title     String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+
   events  Event[]
   sources Source[]
-  
+
   @@map("topics")
 }
 
