@@ -26,8 +26,32 @@ export default function HomePage() {
   const { toast } = useToast();
 
   useEffect(() => {
+    const loadTopicsFromAPI = async () => {
+      try {
+        const response = await fetch("/api/topics");
+        if (response.ok) {
+          const apiTopics = await response.json();
+          // Convert to local format
+          const localTopics = apiTopics.map((topic: any) => ({
+            id: topic.id.toString(),
+            title: topic.title,
+            prompt: topic.prompt,
+            createdAt: new Date(),
+          }));
+          setTopics(localTopics);
+        }
+      } catch (error) {
+        console.error("Error loading topics from API:", error);
+        // Fallback to localStorage
+        const state = loadState();
+        setTopics(state.topics);
+      }
+    };
+
+    loadTopicsFromAPI();
+
+    // Load notifications from localStorage
     const state = loadState();
-    setTopics(state.topics);
     setNotifications(state.notifications);
 
     if (state.topics.length === 0 && state.notifications.length === 0) {
@@ -35,6 +59,7 @@ export default function HomePage() {
         "AI Developments",
         "Track the latest developments in artificial intelligence, machine learning, and AI applications"
       );
+
       const demoNotifications = [
         createNotification(
           demoTopic.id,
@@ -73,24 +98,63 @@ export default function HomePage() {
     }
   }, [topics, notifications]);
 
-  const handleCreateTopic = (title: string, prompt: string) => {
-    const newTopic = createTopic(title, prompt);
-    setTopics((prev) => [newTopic, ...prev]);
-    setSelectedTopic(newTopic);
-
-    setTimeout(() => {
-      const demoNotification = createNotification(
-        newTopic.id,
-        `Welcome to ${title}`,
-        `You\'re now tracking "${title}". We\'ll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
-        "Synk System"
-      );
-      setNotifications((prev) => [demoNotification, ...prev]);
-      toast({
-        title: demoNotification.title,
-        description: demoNotification.body,
+  const handleCreateTopic = async (title: string, prompt: string) => {
+    try {
+      // Send POST request to API
+      const response = await fetch("/api/topics", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          prompt: prompt,
+        }),
       });
-    }, 1000);
+
+      if (!response.ok) {
+        throw new Error("Failed to create topic");
+      }
+
+      const newTopic = await response.json();
+
+      // Convert to local format (add timestamp and other fields)
+      const localTopic = {
+        id: newTopic.id.toString(),
+        title: newTopic.title,
+        prompt: newTopic.prompt,
+        createdAt: new Date(),
+      };
+
+      setTopics((prev) => [localTopic, ...prev]);
+
+      // Simulate getting a notification after creating a topic
+      setTimeout(() => {
+        const demoNotification = createNotification(
+          localTopic.id,
+          `Welcome to ${title}`,
+          `You're now tracking "${title}". We'll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
+          "Synk System"
+        );
+        setNotifications((prev) => [demoNotification, ...prev]);
+      }, 1000);
+    } catch (error) {
+      console.error("Error creating topic:", error);
+      // Fallback to local creation if API fails
+      const newTopic = createTopic(title, prompt);
+      setTopics((prev) => [newTopic, ...prev]);
+
+      // Still create notification
+      setTimeout(() => {
+        const demoNotification = createNotification(
+          newTopic.id,
+          `Welcome to ${title}`,
+          `You're now tracking "${title}". We'll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
+          "Synk System"
+        );
+        setNotifications((prev) => [demoNotification, ...prev]);
+      }, 1000);
+    }
   };
 
   const handleTopicClick = (topic: Topic) => {
