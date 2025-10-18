@@ -15,41 +15,56 @@ export default function HomePage() {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null)
 
-  // Load state from localStorage on mount
+  // Load topics from API and state from localStorage on mount
   useEffect(() => {
+    const loadTopicsFromAPI = async () => {
+      try {
+        const response = await fetch('/api/topics')
+        if (response.ok) {
+          const apiTopics = await response.json()
+          // Konwertuj na format lokalny
+          const localTopics = apiTopics.map((topic: any) => ({
+            id: topic.id.toString(),
+            title: topic.title,
+            prompt: topic.prompt,
+            createdAt: new Date() // Użyj obiektu Date zamiast stringa
+          }))
+          setTopics(localTopics)
+        }
+      } catch (error) {
+        console.error('Error loading topics from API:', error)
+        // Fallback to localStorage
+        const state = loadState()
+        setTopics(state.topics)
+      }
+    }
+
+    loadTopicsFromAPI()
+
+    // Load notifications from localStorage
     const state = loadState()
-    setTopics(state.topics)
     setNotifications(state.notifications)
 
     // Add demo notifications if this is the first load
-    if (state.topics.length === 0 && state.notifications.length === 0) {
-      const demoTopic = createTopic(
-        "AI Developments",
-        "Track the latest developments in artificial intelligence, machine learning, and AI applications",
-      )
+    if (state.notifications.length === 0) {
       const demoNotifications = [
         createNotification(
-          demoTopic.id,
+          "1",
           "New AI Model Released by OpenAI",
           "OpenAI has announced a new language model with improved reasoning capabilities and reduced hallucinations. The model shows significant improvements in mathematical problem-solving and code generation.",
           "Tech News",
           "https://example.com",
         ),
         createNotification(
-          demoTopic.id,
+          "1",
           "Google Announces AI-Powered Search Features",
           "Google is rolling out new AI-powered search features that provide more contextual and conversational results. The update includes better understanding of complex queries.",
           "Google Blog",
         ),
       ]
 
-      const newState = {
-        topics: [demoTopic],
-        notifications: demoNotifications,
-      }
-      setTopics(newState.topics)
-      setNotifications(newState.notifications)
-      saveState(newState)
+      setNotifications(demoNotifications)
+      saveState({ topics: [], notifications: demoNotifications })
     }
   }, [])
 
@@ -60,20 +75,52 @@ export default function HomePage() {
     }
   }, [topics, notifications])
 
-  const handleCreateTopic = (title: string, prompt: string) => {
-    const newTopic = createTopic(title, prompt)
-    setTopics((prev) => [newTopic, ...prev])
+  const handleCreateTopic = async (title: string, prompt: string) => {
+    try {
+      // Wyślij POST request do API
+      const response = await fetch('/api/topics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: title,
+          prompt: prompt
+        })
+      })
 
-    // Simulate getting a notification after creating a topic
-    setTimeout(() => {
-      const demoNotification = createNotification(
-        newTopic.id,
-        `Welcome to ${title}`,
-        `You're now tracking "${title}". We'll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
-        "Synk System",
-      )
-      setNotifications((prev) => [demoNotification, ...prev])
-    }, 1000)
+      if (!response.ok) {
+        throw new Error('Failed to create topic')
+      }
+
+      const newTopic = await response.json()
+      
+      // Konwertuj na format lokalny (dodaj timestamp i inne pola)
+      const localTopic = {
+        id: newTopic.id.toString(),
+        title: newTopic.title,
+        prompt: newTopic.prompt,
+        createdAt: new Date() // Użyj obiektu Date zamiast stringa
+      }
+
+      setTopics((prev) => [localTopic, ...prev])
+
+      // Simulate getting a notification after creating a topic
+      setTimeout(() => {
+        const demoNotification = createNotification(
+          localTopic.id,
+          `Welcome to ${title}`,
+          `You're now tracking "${title}". We'll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
+          "Synk System",
+        )
+        setNotifications((prev) => [demoNotification, ...prev])
+      }, 1000)
+    } catch (error) {
+      console.error('Error creating topic:', error)
+      // Fallback to local creation if API fails
+      const newTopic = createTopic(title, prompt)
+      setTopics((prev) => [newTopic, ...prev])
+    }
   }
 
   const handleTopicClick = (topic: Topic) => {
