@@ -2,7 +2,7 @@
 
 import type { Notification, Topic } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ export function NotificationsSidebar({
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full p-6">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold text-foreground">
           Notifications
@@ -44,7 +44,7 @@ export function NotificationsSidebar({
         </p>
       </div>
 
-      <ScrollArea className="flex-1">
+      <div className="flex-1 overflow-y-auto">
         <div className="space-y-3">
           {sortedNotifications.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
@@ -59,18 +59,20 @@ export function NotificationsSidebar({
                 key={notification.id}
                 variant="ghost"
                 className={cn(
-                  "w-full justify-start text-left h-auto py-3 px-4 relative",
+                  "w-full justify-start border text-left h-auto py-3 px-4 relative transition-transform",
                   !notification.isRead && "bg-accent/50"
                 )}
                 onClick={() => onNotificationClick(notification)}
               >
                 <div className="flex flex-col gap-1.5 w-full">
-                  {!notification.isRead && (
-                    <div className="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full" />
-                  )}
-                  <span className="font-medium text-sm line-clamp-2 pr-4">
-                    {notification.title}
-                  </span>
+                  <div className="flex items-start justify-between w-full">
+                    <span className="font-medium text-sm line-clamp-2">
+                      {notification.title}
+                    </span>
+                    {!notification.isRead && (
+                      <div className="w-2 h-2 bg-primary rounded-full shrink-0 mt-1.5" />
+                    )}
+                  </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <span className="line-clamp-1">
                       {getTopicTitle(notification.topicId)}
@@ -87,7 +89,7 @@ export function NotificationsSidebar({
             ))
           )}
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 }
