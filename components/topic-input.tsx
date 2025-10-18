@@ -1,32 +1,32 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Sparkles } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Sparkles } from "lucide-react";
 
 interface TopicInputProps {
-  onCreateTopic: (title: string, prompt: string) => void
+  onCreateTopic: (title: string, prompt: string) => void;
 }
 
 export function TopicInput({ onCreateTopic }: TopicInputProps) {
-  const [title, setTitle] = useState("")
-  const [prompt, setPrompt] = useState("")
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [title, setTitle] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (title.trim() && prompt.trim()) {
-      onCreateTopic(title.trim(), prompt.trim())
-      setTitle("")
-      setPrompt("")
-      setIsExpanded(false)
+      onCreateTopic(title.trim(), prompt.trim());
+      setTitle("");
+      setPrompt("");
+      setIsExpanded(false);
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -36,7 +36,8 @@ export function TopicInput({ onCreateTopic }: TopicInputProps) {
           <h1 className="text-4xl font-bold text-balance">Synk</h1>
         </div>
         <p className="text-lg text-muted-foreground text-balance">
-          Stay in sync with what matters. Track topics and get notified when they appear across the web.
+          Stay in sync with what matters. Track topics and get notified when
+          they appear across the web.
         </p>
       </div>
 
@@ -47,9 +48,9 @@ export function TopicInput({ onCreateTopic }: TopicInputProps) {
               placeholder="What would you like to track? Describe the news or information you want to follow..."
               value={prompt}
               onChange={(e) => {
-                setPrompt(e.target.value)
+                setPrompt(e.target.value);
                 if (e.target.value.length > 0) {
-                  setIsExpanded(true)
+                  setIsExpanded(true);
                 }
               }}
               className="min-h-[120px] text-base resize-none bg-card"
@@ -86,9 +87,9 @@ export function TopicInput({ onCreateTopic }: TopicInputProps) {
                 type="button"
                 variant="ghost"
                 onClick={() => {
-                  setIsExpanded(false)
-                  setTitle("")
-                  setPrompt("")
+                  setIsExpanded(false);
+                  setTitle("");
+                  setPrompt("");
                 }}
               >
                 Cancel
@@ -101,5 +102,5 @@ export function TopicInput({ onCreateTopic }: TopicInputProps) {
         )}
       </form>
     </div>
-  )
+  );
 }

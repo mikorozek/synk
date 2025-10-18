@@ -1,18 +1,24 @@
-"use client"
+"use client";
 
-import type { Topic } from "@/lib/types"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { formatDistanceToNow } from "date-fns"
+import type { Topic } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { formatDistanceToNow } from "date-fns";
 
 interface TopicsSidebarProps {
-  topics: Topic[]
-  onTopicClick: (topic: Topic) => void
-  selectedTopicId?: string
+  topics: Topic[];
+  onTopicClick: (topic: Topic) => void;
+  selectedTopicId?: string;
 }
 
-export function TopicsSidebar({ topics, onTopicClick, selectedTopicId }: TopicsSidebarProps) {
-  const sortedTopics = [...topics].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+export function TopicsSidebar({
+  topics,
+  onTopicClick,
+  selectedTopicId,
+}: TopicsSidebarProps) {
+  const sortedTopics = [...topics].sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+  );
 
   return (
     <div className="flex flex-col h-full">
@@ -39,7 +45,9 @@ export function TopicsSidebar({ topics, onTopicClick, selectedTopicId }: TopicsS
                 onClick={() => onTopicClick(topic)}
               >
                 <div className="flex flex-col gap-1 w-full">
-                  <span className="font-medium text-sm line-clamp-1">{topic.title}</span>
+                  <span className="font-medium text-sm line-clamp-1">
+                    {topic.title}
+                  </span>
                   <span className="text-xs text-muted-foreground">
                     {formatDistanceToNow(topic.createdAt, { addSuffix: true })}
                   </span>
@@ -50,5 +58,5 @@ export function TopicsSidebar({ topics, onTopicClick, selectedTopicId }: TopicsS
         </div>
       </ScrollArea>
     </div>
-  )
+  );
 }
