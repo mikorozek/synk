@@ -30,6 +30,8 @@ export default function HomePage() {
                         id: topic.id.toString(),
                         title: topic.title,
                         prompt: topic.prompt,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
                     }));
                     setTopics(formattedTopics);
                 }
@@ -89,6 +91,8 @@ export default function HomePage() {
                 id: newTopic.id.toString(),
                 title: newTopic.title,
                 prompt: newTopic.prompt,
+                createdAt: new Date(),
+                updatedAt: new Date(),
             };
 
             setTopics((prev) => [formattedTopic, ...prev]);
