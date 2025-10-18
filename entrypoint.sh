@@ -2,7 +2,7 @@
 set -e
 
 echo "🔄 Running database migrations..."
-npx prisma migrate deploy
+npx prisma migrate dev --name init
 
 echo "🌱 Seeding database (if needed)..."
 npm run db:seed || echo "⚠️  Seeding skipped or failed (this is okay if data already exists)"
