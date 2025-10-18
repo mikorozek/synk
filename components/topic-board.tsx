@@ -88,9 +88,7 @@ export function TopicBoard({
                         )}
                       </div>
                       <CardDescription className="flex items-center gap-2 text-xs">
-                        <Badge variant="outline" className="text-xs">
-                          {notification.source}
-                        </Badge>
+                        <span className="font-medium">{notification.source}</span>
                         <span>•</span>
                         <span>
                           {formatDistanceToNow(notification.createdAt, {
