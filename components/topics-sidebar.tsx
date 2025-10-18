@@ -51,7 +51,11 @@ export function TopicsSidebar({
   const [renamingTopic, setRenamingTopic] = useState<Topic | null>(null);
   const [renameValue, setRenameValue] = useState("");
 
-  const sortedTopics = [...topics];
+  const sortedTopics = [...topics].sort((a, b) => {
+    const timeA = a.createdAt?.getTime() ?? 0;
+    const timeB = b.createdAt?.getTime() ?? 0;
+    return timeB - timeA;
+  });
 
   const hasUnread = (topicId: string) => {
     return notifications.some((n) => n.topicId === topicId && !n.isRead);
@@ -127,6 +131,13 @@ export function TopicsSidebar({
                             <div className="w-2 h-2 bg-primary rounded-full shrink-0 mt-1.5" />
                           )}
                         </div>
+                        <span className="text-xs text-muted-foreground mt-1 block">
+                          {topic.createdAt
+                            ? formatDistanceToNow(topic.createdAt, {
+                                addSuffix: true,
+                              })
+                            : "Just now"}
+                        </span>
                       </div>
                     </button>
 

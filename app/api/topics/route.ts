@@ -3,7 +3,11 @@ import { prisma } from "@/lib/db";
 
 export async function GET() {
     try {
-        const topics = await prisma.topic.findMany();
+        const topics = await prisma.topic.findMany({
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
         return NextResponse.json(topics);
     } catch (error) {
         console.error("Error fetching topics:", error);
