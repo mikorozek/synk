@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import type { Topic, Notification, AppState } from "./types"
+import { v4 as uuidv4 } from "uuid";
+import type { Topic, Notification, AppState } from "./types";
 
-const STORAGE_KEY = "synk-app-state"
+const STORAGE_KEY = "synk-app-state";
 
 export function loadState(): AppState {
   if (typeof window === "undefined") {
-    return { topics: [], notifications: [] }
+    return { topics: [], notifications: [] };
   }
 
   try {
-    const stored = localStorage.getItem(STORAGE_KEY)
+    const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-      return { topics: [], notifications: [] }
+      return { topics: [], notifications: [] };
     }
 
-    const parsed = JSON.parse(stored)
+    const parsed = JSON.parse(stored);
     return {
       topics: parsed.topics.map((t: any) => ({
         ...t,
@@ -26,30 +27,30 @@ export function loadState(): AppState {
         ...n,
         createdAt: new Date(n.createdAt),
       })),
-    }
+    };
   } catch {
-    return { topics: [], notifications: [] }
+    return { topics: [], notifications: [] };
   }
 }
 
 export function saveState(state: AppState): void {
-  if (typeof window === "undefined") return
+  if (typeof window === "undefined") return;
 
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (error) {
-    console.error("Failed to save state:", error)
+    console.error("Failed to save state:", error);
   }
 }
 
 export function createTopic(title: string, prompt: string): Topic {
   return {
-    id: crypto.randomUUID(),
+    id: uuidv4(),
     title,
     prompt,
     createdAt: new Date(),
     updatedAt: new Date(),
-  }
+  };
 }
 
 export function createNotification(
@@ -57,10 +58,10 @@ export function createNotification(
   title: string,
   content: string,
   source: string,
-  url?: string,
+  url?: string
 ): Notification {
   return {
-    id: crypto.randomUUID(),
+    id: uuidv4(),
     topicId,
     title,
     content,
@@ -68,5 +69,5 @@ export function createNotification(
     url,
     createdAt: new Date(),
     isRead: false,
-  }
+  };
 }
