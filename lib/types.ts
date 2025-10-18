@@ -2,8 +2,6 @@ export interface Topic {
   id: string;
   title: string;
   prompt: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface Notification {
