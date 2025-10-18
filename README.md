@@ -2,28 +2,19 @@
 
 A Next.js application for monitoring topics across the web and receiving notifications about relevant events.
 
-## Quick Start with Docker
+## Quick Start
 
 ### Prerequisites
 - Docker and Docker Compose installed
-- Git
 
-### Development Setup
+### Setup
 
-1. **Clone and setup environment**
+1. **Start the application**
    ```bash
-   git clone <repository-url>
-   cd ai-web-monitor
-   cp .env.example .env
+   docker-compose up --build
    ```
 
-2. **Start development environment**
-   ```bash
-   # Start PostgreSQL database and app in development mode
-   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
-   ```
-
-3. **Run database migrations** (in another terminal)
+2. **Run database migrations** (in another terminal)
    ```bash
    # Enter the app container
    docker-compose exec app sh
@@ -35,22 +26,9 @@ A Next.js application for monitoring topics across the web and receiving notific
    npm run db:seed
    ```
 
-4. **Access the application**
+3. **Access the application**
    - App: http://localhost:3000
    - Database: localhost:5432
-   - Prisma Studio: `npm run db:studio` (from inside container)
-
-### Production Setup
-
-1. **Build and run production containers**
-   ```bash
-   docker-compose up --build -d
-   ```
-
-2. **Run migrations in production**
-   ```bash
-   docker-compose exec app npx prisma migrate deploy
-   ```
 
 ## Local Development (without Docker)
 
@@ -65,19 +43,13 @@ A Next.js application for monitoring topics across the web and receiving notific
    npm install
    ```
 
-2. **Setup environment**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your local database URL
-   ```
-
-3. **Setup database**
+2. **Setup database**
    ```bash
    npm run db:migrate
    npm run db:seed
    ```
 
-4. **Start development server**
+3. **Start development server**
    ```bash
    npm run dev
    ```
@@ -96,14 +68,6 @@ The application uses three main tables:
 - `POST /api/topics` - Create new topic
 - `GET /api/events` - Get all recent events
 - `GET /api/events/[topicId]` - Get events for specific topic
-
-## Environment Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | Required |
-| `NODE_ENV` | Environment mode | `development` |
-| `NEXTAUTH_SECRET` | Secret for authentication | Required in production |
 
 ## Development Commands
 
@@ -124,11 +88,8 @@ npm run lint            # Run ESLint
 ## Docker Commands
 
 ```bash
-# Development
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
-
-# Production
-docker-compose up --build -d
+# Start development environment
+docker-compose up --build
 
 # View logs
 docker-compose logs -f app
