@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Topic form</title>
+  </head>
+  <body>
+    <h1>Create Topic</h1>
+    <form action="/submit" method="post">
+      <label>Topic title: <input name="title" required></label><br>
+      <label>Event title: <input name="eventTitle" required></label><br>
+      <label>Event URL: <input name="eventUrl" required></label><br>
+      <label>Event summary: <input name="eventSummary"></label><br>
+      <label>Source URL: <input name="sourceUrl" required></label><br>
+      <label>Source type: <input name="sourceType" value="web"></label><br>
+      <button type="submit">Create</button>
+    </form>
+  </body>
+</html>

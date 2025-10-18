@@ -1,0 +1,57 @@
+{
+  "name": "synk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+  "body-parser": "^1.20.2",
+  "express": "^4.18.2",
+    "c12": "^3.1.0",
+    "chokidar": "^4.0.3",
+    "citty": "^0.1.6",
+    "confbox": "^0.2.2",
+    "consola": "^3.4.2",
+    "deepmerge-ts": "^7.1.5",
+    "defu": "^6.1.4",
+    "destr": "^2.0.5",
+    "dotenv": "^16.6.1",
+    "effect": "^3.16.12",
+    "empathic": "^2.0.0",
+    "exsolve": "^1.0.7",
+    "fast-check": "^3.23.2",
+    "giget": "^2.0.0",
+    "jiti": "^2.6.1",
+    "node-fetch-native": "^1.6.7",
+    "nypm": "^0.6.2",
+    "ohash": "^2.0.11",
+    "pathe": "^2.0.3",
+    "perfect-debounce": "^1.0.0",
+    "pkg-types": "^2.3.0",
+    "prisma": "^6.17.1",
+    "pure-rand": "^6.1.0",
+    "rc9": "^2.1.2",
+    "readdirp": "^4.1.2",
+    "tinyexec": "^1.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:migrate": "npx prisma migrate dev --name update_schema --skip-seed",
+    "prisma:generate": "npx prisma generate",
+    "client": "node scripts/client.js",
+    "start:server": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikorozek/synk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mikorozek/synk/issues"
+  },
+  "homepage": "https://github.com/mikorozek/synk#readme"
+  
+}
