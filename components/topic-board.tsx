@@ -9,17 +9,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, ExternalLink, Trash2 } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TopicBoardProps {
   topic: Topic;
   notifications: Notification[];
   onBack: () => void;
-  onDeleteTopic: (topicId: string) => void;
   onMarkAsRead: (notificationId: string) => void;
 }
 
@@ -27,56 +25,32 @@ export function TopicBoard({
   topic,
   notifications,
   onBack,
-  onDeleteTopic,
   onMarkAsRead,
 }: TopicBoardProps) {
   const topicNotifications = notifications
     .filter((n) => n.topicId === topic.id)
     .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
-  const unreadCount = topicNotifications.filter((n) => !n.isRead).length;
-
   return (
     <div className="w-full max-w-5xl mx-auto">
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onBack}
-            className="mb-4 -ml-2"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <h1 className="text-3xl font-bold text-balance">{topic.title}</h1>
-              {unreadCount > 0 && (
-                <Badge variant="default" className="text-xs">
-                  {unreadCount} new
-                </Badge>
-              )}
-            </div>
-            <p className="text-muted-foreground text-balance">{topic.prompt}</p>
-            <p className="text-sm text-muted-foreground">
-              Created{" "}
-              {formatDistanceToNow(topic.createdAt, { addSuffix: true })}
-            </p>
-          </div>
-        </div>
+      <div className="mb-6">
         <Button
-          variant="destructive"
+          variant="ghost"
           size="sm"
-          onClick={() => {
-            if (confirm("Are you sure you want to delete this topic?")) {
-              onDeleteTopic(topic.id);
-            }
-          }}
+          onClick={onBack}
+          className="mb-4 -ml-2"
         >
-          <Trash2 className="w-4 h-4 mr-2" />
-          Delete
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back
         </Button>
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-balance">{topic.title}</h1>
+          <p className="text-muted-foreground text-balance">{topic.prompt}</p>
+          <p className="text-sm text-muted-foreground">
+            Created{" "}
+            {formatDistanceToNow(topic.createdAt, { addSuffix: true })}
+          </p>
+        </div>
       </div>
 
       <ScrollArea className="h-[calc(100vh-280px)]">
