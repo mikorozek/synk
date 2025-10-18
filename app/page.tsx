@@ -4,19 +4,17 @@ import { useState, useEffect } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
-import { NotificationsSidebar } from "@/components/notifications-sidebar";
 import { TopicInput } from "@/components/topic-input";
 import { TopicBoard } from "@/components/topic-board";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useToast } from "@/hooks/use-toast";
-import { List, Bell } from "lucide-react";
+import { List } from "lucide-react";
 
 export default function HomePage() {
     const [topics, setTopics] = useState<Topic[]>([]);
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
     const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
-    const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
     const { toast } = useToast();
 
     useEffect(() => {
@@ -119,16 +117,6 @@ export default function HomePage() {
         );
     };
 
-    const handleNotificationClick = (notification: Notification) => {
-        setNotifications((prev) =>
-            prev.map((n) => (n.id === notification.id ? { ...n, isRead: true } : n))
-        );
-
-        const topic = topics.find((t) => t.id === notification.topicId);
-        if (topic) {
-            setSelectedTopic(topic);
-        }
-    };
 
     const handleDeleteTopic = async (topicId: string) => {
         try {
@@ -202,11 +190,10 @@ export default function HomePage() {
 
     // Calculate the offset for centering content
     const leftOffset = leftSidebarOpen ? 320 : 0; // w-80 = 320px, w-0 = 0px
-    const rightOffset = rightSidebarOpen ? 320 : 0;
 
     return (
         <div className="min-h-screen flex items-center justify-center p-6">
-            <ThemeToggle leftOffset={leftOffset} rightOffset={rightOffset} />
+            <ThemeToggle leftOffset={leftOffset} rightOffset={0} />
 
             <SlidingSidebar
                 side="left"
@@ -224,23 +211,11 @@ export default function HomePage() {
                 />
             </SlidingSidebar>
 
-            <SlidingSidebar
-                side="right"
-                icon={<Bell className="w-5 h-5" />}
-                onToggle={setRightSidebarOpen}
-            >
-                <NotificationsSidebar
-                    notifications={notifications}
-                    topics={topics}
-                    onNotificationClick={handleNotificationClick}
-                />
-            </SlidingSidebar>
-
             <main
                 className="w-full transition-all duration-300 ease-in-out"
                 style={{
                     marginLeft: `${leftOffset}px`,
-                    marginRight: `${rightOffset}px`,
+                    marginRight: `0px`,
                 }}
             >
                 {selectedTopic ? (
