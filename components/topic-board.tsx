@@ -98,7 +98,7 @@ export function TopicBoard({
                 key={notification.id}
                 className={cn(
                   "transition-all hover:shadow-md cursor-pointer",
-                  !notification.isRead && "border-primary/50 bg-accent/30",
+                  !notification.isRead && "border-primary/50 bg-accent/30"
                 )}
                 onClick={() => onMarkAsRead(notification.id)}
               >

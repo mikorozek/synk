@@ -1,5 +1,6 @@
 "use client";
 
+import { v4 as uuidv4 } from "uuid";
 import type { Topic, Notification, AppState } from "./types";
 
 const STORAGE_KEY = "synk-app-state";
@@ -44,7 +45,7 @@ export function saveState(state: AppState): void {
 
 export function createTopic(title: string, prompt: string): Topic {
   return {
-    id: crypto.randomUUID(),
+    id: uuidv4(),
     title,
     prompt,
     createdAt: new Date(),
@@ -57,10 +58,10 @@ export function createNotification(
   title: string,
   content: string,
   source: string,
-  url?: string,
+  url?: string
 ): Notification {
   return {
-    id: crypto.randomUUID(),
+    id: uuidv4(),
     topicId,
     title,
     content,

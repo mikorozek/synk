@@ -21,7 +21,7 @@ export function SlidingSidebar({ side, children, icon }: SlidingSidebarProps) {
         onMouseEnter={() => setIsOpen(true)}
         className={cn(
           "fixed top-1/2 -translate-y-1/2 z-40 p-3 bg-muted/80 backdrop-blur-sm hover:bg-muted transition-all duration-300 rounded-lg",
-          side === "left" ? "left-4" : "right-4",
+          side === "left" ? "left-4" : "right-4"
         )}
         aria-label={`Toggle ${side} sidebar`}
       >
@@ -39,7 +39,7 @@ export function SlidingSidebar({ side, children, icon }: SlidingSidebarProps) {
             ? "translate-x-0"
             : side === "left"
               ? "-translate-x-full"
-              : "translate-x-full",
+              : "translate-x-full"
         )}
       >
         <div className="h-full overflow-y-auto p-6">{children}</div>

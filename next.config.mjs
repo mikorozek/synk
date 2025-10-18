@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    allowedDevOrigins: ["http://10.10.111.142:3000"],
+  },
 }
 
 export default nextConfig

@@ -19,7 +19,7 @@ export function NotificationsSidebar({
   onNotificationClick,
 }: NotificationsSidebarProps) {
   const sortedNotifications = [...notifications].sort(
-    (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
   );
 
   const getTopicTitle = (topicId: string) => {
@@ -60,7 +60,7 @@ export function NotificationsSidebar({
                 variant="ghost"
                 className={cn(
                   "w-full justify-start text-left h-auto py-3 px-4 relative",
-                  !notification.isRead && "bg-accent/50",
+                  !notification.isRead && "bg-accent/50"
                 )}
                 onClick={() => onNotificationClick(notification)}
               >

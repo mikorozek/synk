@@ -30,7 +30,7 @@ export default function HomePage() {
     if (state.topics.length === 0 && state.notifications.length === 0) {
       const demoTopic = createTopic(
         "AI Developments",
-        "Track the latest developments in artificial intelligence, machine learning, and AI applications",
+        "Track the latest developments in artificial intelligence, machine learning, and AI applications"
       );
       const demoNotifications = [
         createNotification(
@@ -38,13 +38,13 @@ export default function HomePage() {
           "New AI Model Released by OpenAI",
           "OpenAI has announced a new language model with improved reasoning capabilities and reduced hallucinations. The model shows significant improvements in mathematical problem-solving and code generation.",
           "Tech News",
-          "https://example.com",
+          "https://example.com"
         ),
         createNotification(
           demoTopic.id,
           "Google Announces AI-Powered Search Features",
           "Google is rolling out new AI-powered search features that provide more contextual and conversational results. The update includes better understanding of complex queries.",
-          "Google Blog",
+          "Google Blog"
         ),
       ];
 
@@ -75,7 +75,7 @@ export default function HomePage() {
         newTopic.id,
         `Welcome to ${title}`,
         `You're now tracking "${title}". We'll notify you when relevant content appears across social media, websites, RSS feeds, and newsletters.`,
-        "Synk System",
+        "Synk System"
       );
       setNotifications((prev) => [demoNotification, ...prev]);
     }, 1000);
@@ -88,7 +88,7 @@ export default function HomePage() {
   const handleNotificationClick = (notification: Notification) => {
     // Mark as read
     setNotifications((prev) =>
-      prev.map((n) => (n.id === notification.id ? { ...n, isRead: true } : n)),
+      prev.map((n) => (n.id === notification.id ? { ...n, isRead: true } : n))
     );
 
     // Navigate to the topic
@@ -106,7 +106,7 @@ export default function HomePage() {
 
   const handleMarkAsRead = (notificationId: string) => {
     setNotifications((prev) =>
-      prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n)),
+      prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n))
     );
   };
 

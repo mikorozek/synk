@@ -17,7 +17,7 @@ export function TopicsSidebar({
   selectedTopicId,
 }: TopicsSidebarProps) {
   const sortedTopics = [...topics].sort(
-    (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
   );
 
   return (
