@@ -1,0 +1,20 @@
+---
+Endpoint 1
+method: GET
+content: list of all topics that user created
+
+---
+Endpoint 2
+method: POST
+content: Create a new topic for monitoring
+
+---
+Endpoint 3
+method: GET
+content: Get all recent notifications from all of the topics combined
+purpose: list on the right side of the site
+
+---
+Endpoint 4
+method: GET
+content: all notifications from specific topic
