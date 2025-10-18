@@ -2,56 +2,58 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { PanelLeft, PanelRight } from "lucide-react";
 
 interface SlidingSidebarProps {
   side: "left" | "right";
   children: React.ReactNode;
   icon: React.ReactNode;
+  onToggle?: (isOpen: boolean) => void;
 }
 
-export function SlidingSidebar({ side, children, icon }: SlidingSidebarProps) {
+export function SlidingSidebar({ side, children, icon, onToggle }: SlidingSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    onToggle?.(isOpen);
+  }, [isOpen, onToggle]);
 
   return (
     <>
-      {/* Trigger Button */}
+      {/* Fixed Toggle Button */}
       <button
-        onMouseEnter={() => setIsOpen(true)}
+        onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed top-1/2 -translate-y-1/2 z-40 p-3 bg-muted/80 backdrop-blur-sm hover:bg-muted transition-all duration-300 rounded-lg",
-          side === "left" ? "left-4" : "right-4"
+          "fixed top-3 p-2.5 hover:bg-muted rounded-lg transition-colors z-40 bg-card border border-border",
+          side === "left" ? "left-3" : "right-3"
         )}
         aria-label={`Toggle ${side} sidebar`}
       >
-        {icon}
+        {isOpen ? (
+          side === "left" ? <PanelLeft className="w-5 h-5" /> : <PanelRight className="w-5 h-5" />
+        ) : (
+          icon
+        )}
       </button>
 
       {/* Sidebar Panel */}
       <div
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
         className={cn(
-          "fixed top-0 h-full w-80 bg-card border-border z-50 transition-transform duration-300 ease-in-out shadow-2xl",
+          "fixed top-0 h-full bg-card border-border z-30 transition-all duration-300 ease-in-out shadow-2xl",
           side === "left" ? "left-0 border-r" : "right-0 border-l",
-          isOpen
-            ? "translate-x-0"
-            : side === "left"
-              ? "-translate-x-full"
-              : "translate-x-full"
+          isOpen ? "w-80" : "w-0"
         )}
       >
-        <div className="h-full overflow-y-auto p-6">{children}</div>
+        {/* Sidebar Content */}
+        <div className={cn(
+          "h-full pt-16 transition-opacity duration-300",
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}>
+          {children}
+        </div>
       </div>
-
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </>
   );
 }
