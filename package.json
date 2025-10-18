@@ -10,7 +10,10 @@
     "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
     "db:seed": "npx prisma db seed",
-    "db:studio": "npx prisma studio"
+    "db:studio": "npx prisma studio",
+    "docker:rebuild": "docker compose down && docker compose up -d --build",
+    "docker:restart": "docker compose restart",
+    "schema:update": "docker exec synk-app-1 npx prisma migrate dev && docker compose restart app"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

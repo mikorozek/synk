@@ -4,31 +4,31 @@ A Next.js application for monitoring topics across the web and receiving notific
 
 ## Quick Start
 
-### Prerequisites
-- Docker and Docker Compose installed
+```bash
+# Start the application (migrations run automatically!)
+docker compose up -d
 
-### Setup
+# Access the app
+open http://localhost:3000
+```
 
-1. **Start the application**
-   ```bash
-   docker-compose up --build
-   ```
+That's it! Database migrations and seeding happen automatically on startup.
 
-2. **Run database migrations** (in another terminal)
-   ```bash
-   # Enter the app container
-   docker-compose exec app sh
-   
-   # Run Prisma migrations
-   npm run db:migrate
-   
-   # Optional: Seed database with sample data
-   npm run db:seed
-   ```
+## Making Database Changes
 
-3. **Access the application**
-   - App: http://localhost:3000
-   - Database: localhost:5432
+When you edit `prisma/schema.prisma`:
+
+```bash
+./migrate.sh your_migration_name
+```
+
+**Example:**
+```bash
+# Edit prisma/schema.prisma to add a field
+./migrate.sh add_description_field
+```
+
+See [QUICK_START.md](QUICK_START.md) for detailed workflows and [MIGRATION_SETUP.md](MIGRATION_SETUP.md) for technical details
 
 ## Local Development (without Docker)
 
@@ -89,14 +89,14 @@ npm run lint            # Run ESLint
 
 ```bash
 # Start development environment
-docker-compose up --build
+docker compose up --build
 
 # View logs
-docker-compose logs -f app
+docker compose logs -f app
 
 # Access app container
-docker-compose exec app sh
+docker compose exec app sh
 
 # Stop services
-docker-compose down
+docker compose down
 ```
