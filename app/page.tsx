@@ -83,14 +83,14 @@ export default function HomePage() {
                 throw new Error(errorData.error || "Failed to create topic");
             }
 
-            const newTopic = await response.json();
+            const responseData = await response.json();
 
             // Convert to local format
             const formattedTopic = {
-                id: newTopic.id.toString(),
-                title: newTopic.title,
-                prompt: newTopic.prompt,
-                createdAt: newTopic.createdAt ? new Date(newTopic.createdAt) : new Date(),
+                id: responseData.topic.id.toString(),
+                title: responseData.topic.title,
+                prompt: responseData.topic.prompt,
+                createdAt: responseData.topic.createdAt ? new Date(responseData.topic.createdAt) : new Date(),
             };
 
             setTopics((prev) => [formattedTopic, ...prev]);

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { discoverSources, generateTitle } from "@/lib/ai";
 
 export async function GET() {
     try {
@@ -20,8 +21,9 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { prompt } = body;
 
-        console.log("post request begin");
+        console.log("[API] POST request begin");
 
+        // Step 1: Validate prompt
         if (!prompt) {
             return NextResponse.json(
                 { error: "Prompt is required" },
@@ -29,20 +31,90 @@ export async function POST(request: Request) {
             );
         }
 
-        const title = prompt.split(/[.\n]/)[0].substring(0, 50).trim();
+        // Step 2: Call GPT-4o for source discovery
+        let sourcesResult;
+        try {
+            sourcesResult = await discoverSources(prompt);
+        } catch (error) {
+            console.error("[API] Source discovery failed:", error);
+            return NextResponse.json(
+                { error: `Failed to discover sources: ${error instanceof Error ? error.message : 'Unknown error'}` },
+                { status: 500 }
+            );
+        }
 
-        const newTopic = await prisma.topic.create({
-            data: {
-                title: title,
-                prompt: prompt
+        // Step 3: Call GPT-4o-mini for title generation
+        let titleResult;
+        try {
+            titleResult = await generateTitle(prompt);
+        } catch (error) {
+            console.error("[API] Title generation failed:", error);
+            return NextResponse.json(
+                { error: `Failed to generate title: ${error instanceof Error ? error.message : 'Unknown error'}` },
+                { status: 500 }
+            );
+        }
+
+        // Step 4: Create topic in database
+        let newTopic;
+        try {
+            console.log("[API] Creating topic in database");
+            newTopic = await prisma.topic.create({
+                data: {
+                    title: titleResult.title,
+                    prompt: prompt
+                }
+            });
+            console.log(`[API] Topic created with ID: ${newTopic.id}`);
+        } catch (error) {
+            console.error("[API] Topic creation failed:", error);
+            return NextResponse.json(
+                { error: `Failed to create topic: ${error instanceof Error ? error.message : 'Unknown error'}` },
+                { status: 500 }
+            );
+        }
+
+        // Step 5: Store sources in database
+        const savedSources = [];
+        for (const source of sourcesResult.sources) {
+            try {
+                console.log(`[API] Saving source: ${source.url}`);
+                await prisma.source.create({
+                    data: {
+                        topicId: newTopic.id,
+                        sourceUrl: source.url,
+                        type: source.type
+                    }
+                });
+                savedSources.push(source);
+            } catch (error) {
+                // Log error but continue - source storage failures don't break the request
+                console.error(`[API] Failed to save source ${source.url}:`, error);
             }
-        });
+        }
 
-        return NextResponse.json(newTopic, { status: 201 });
-    } catch (error) {
-        console.error("Error creating topic:", error);
+        // Step 6: Return response with topic data and AI-generated sources
+        console.log("[API] POST request completed successfully");
         return NextResponse.json(
-            { error: "Failed to create topic, error: " + error },
+            {
+                topic: {
+                    id: newTopic.id,
+                    title: newTopic.title,
+                    prompt: newTopic.prompt,
+                    createdAt: newTopic.createdAt
+                },
+                sources: sourcesResult.sources.map(s => ({
+                    url: s.url,
+                    type: s.type,
+                    description: s.description
+                }))
+            },
+            { status: 201 }
+        );
+    } catch (error) {
+        console.error("[API] Unexpected error creating topic:", error);
+        return NextResponse.json(
+            { error: `Failed to create topic: ${error instanceof Error ? error.message : 'Unknown error'}` },
             { status: 500 }
         );
     }
