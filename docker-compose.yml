@@ -15,7 +15,7 @@ services:
         condition: service_healthy
 
   db:
-    image: postgres:15-alpine
+    image: postgres:16-alpine
     environment:
       - POSTGRES_DB=synk_db
       - POSTGRES_USER=synk_user
