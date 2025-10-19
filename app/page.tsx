@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
-import { TopicInput } from "@/components/topic-input";
+import { ChatFlowWrapper } from "@/components/chat-flow-wrapper";
 import { TopicBoard } from "@/components/topic-board";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useToast } from "@/hooks/use-toast";
@@ -64,46 +64,36 @@ export default function HomePage() {
 
 
     const handleCreateTopic = async (title: string, prompt: string) => {
+        // This is called by ChatFlowWrapper after the topic has already been created
+        // We just need to update the local state
+        // The API call is made inside ChatFlowWrapper with the conversation context
+
+        // Reload topics from the server to get the latest
         try {
-            const response = await fetch("/api/topics", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    prompt: prompt,
-                }),
-            });
+            const topicsResponse = await fetch("/api/topics");
+            if (topicsResponse.ok) {
+                const apiTopics = await topicsResponse.json();
+                const formattedTopics = apiTopics.map((topic: any) => ({
+                    id: topic.id.toString(),
+                    title: topic.title,
+                    prompt: topic.prompt,
+                    createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
+                }));
+                setTopics(formattedTopics);
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("API Error:", errorData);
-                throw new Error(errorData.error || "Failed to create topic");
+                // Don't auto-select the topic - let the user click the "Go to" button instead
+                // This allows them to see the completion message and choose when to proceed
+
+                toast({
+                    title: "Topic created",
+                    description: `Now tracking "${title}"`,
+                });
             }
-
-            const responseData = await response.json();
-
-            // Convert to local format
-            const formattedTopic = {
-                id: responseData.topic.id.toString(),
-                title: responseData.topic.title,
-                prompt: responseData.topic.prompt,
-                createdAt: responseData.topic.createdAt ? new Date(responseData.topic.createdAt) : new Date(),
-            };
-
-            setTopics((prev) => [formattedTopic, ...prev]);
-
+        } catch (error) {
+            console.error("Error loading topics:", error);
             toast({
                 title: "Topic created",
-                description: `Now tracking "${formattedTopic.title}"`,
-            });
-        } catch (error) {
-            console.error("Error creating topic:", error);
-
-            toast({
-                title: "Failed to create topic",
-                description: "Could not save to database. Please try again.",
-                variant: "destructive",
+                description: `Now tracking "${title}"`,
             });
         }
     };
@@ -188,6 +178,14 @@ export default function HomePage() {
         setSelectedTopic(null);
     };
 
+    const handleProceedToTopic = (topicId: number) => {
+        // Find the topic by ID and select it
+        const topic = topics.find((t) => t.id === topicId.toString());
+        if (topic) {
+            setSelectedTopic(topic);
+        }
+    };
+
     // Calculate the offset for centering content
     const leftOffset = leftSidebarOpen ? 320 : 0; // w-80 = 320px, w-0 = 0px
 
@@ -226,7 +224,10 @@ export default function HomePage() {
                         onMarkAsRead={handleMarkAsRead}
                     />
                 ) : (
-                    <TopicInput onCreateTopic={handleCreateTopic} />
+                    <ChatFlowWrapper
+                        onCreateTopic={handleCreateTopic}
+                        onProceedToTopic={handleProceedToTopic}
+                    />
                 )}
             </main>
         </div>

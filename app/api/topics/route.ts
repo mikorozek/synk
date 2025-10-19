@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { prompt } = body;
+        const { prompt, conversation } = body;
 
         console.log("[API] POST request begin");
 
@@ -31,26 +31,30 @@ export async function POST(request: Request) {
             );
         }
 
-        // Step 2: Call GPT-4o for source discovery
-        let sourcesResult;
-        try {
-            sourcesResult = await discoverSources(prompt);
-        } catch (error) {
-            console.error("[API] Source discovery failed:", error);
-            return NextResponse.json(
-                { error: `Failed to discover sources: ${error instanceof Error ? error.message : 'Unknown error'}` },
-                { status: 500 }
-            );
+        // Build effective prompt from conversation if provided
+        let effectivePrompt = prompt;
+        if (conversation && Array.isArray(conversation) && conversation.length > 0) {
+            console.log("[API] Processing conversation context");
+            effectivePrompt = conversation
+                .map((msg: { role: string; content: string }) =>
+                    `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`
+                )
+                .join('\n');
         }
 
-        // Step 3: Call GPT-4o-mini for title generation
+        // Step 2 & 3: Call AI models in parallel for speed
+        let sourcesResult;
         let titleResult;
         try {
-            titleResult = await generateTitle(prompt);
+            // Run source discovery and title generation in parallel
+            [sourcesResult, titleResult] = await Promise.all([
+                discoverSources(effectivePrompt, !!conversation),
+                generateTitle(effectivePrompt, !!conversation)
+            ]);
         } catch (error) {
-            console.error("[API] Title generation failed:", error);
+            console.error("[API] AI processing failed:", error);
             return NextResponse.json(
-                { error: `Failed to generate title: ${error instanceof Error ? error.message : 'Unknown error'}` },
+                { error: `Failed to process topic: ${error instanceof Error ? error.message : 'Unknown error'}` },
                 { status: 500 }
             );
         }
