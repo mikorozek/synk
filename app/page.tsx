@@ -6,7 +6,6 @@ import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
 import { TopicInput } from "@/components/topic-input";
 import { TopicBoard } from "@/components/topic-board";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useToast } from "@/hooks/use-toast";
 import { List } from "lucide-react";
 
@@ -299,8 +298,6 @@ export default function HomePage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center p-6">
-            <ThemeToggle leftOffset={leftOffset} rightOffset={0} />
-
             <SlidingSidebar
                 side="left"
                 icon={<List className="w-5 h-5" />}
