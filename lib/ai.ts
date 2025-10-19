@@ -7,7 +7,7 @@ const SourceDiscoverySchema = z.object({
   sources: z.array(
     z.object({
       url: z.string(),
-      type: z.enum(['RSS feed', 'static page']),
+      type: z.enum(['RSS', 'Static Page']),
       description: z.string(),
     })
   ),
@@ -51,8 +51,8 @@ export async function discoverSources(
     const sources = (result.sources || []).map((source: any) => ({
       url: source.url,
       type: (source.url.includes('/feed') || source.url.includes('/rss') || source.url.endsWith('.xml'))
-        ? 'RSS feed' as const
-        : 'static page' as const,
+        ? 'RSS' as const
+        : 'Static Page' as const,
       description: source.title || 'Web source',
     }));
 
