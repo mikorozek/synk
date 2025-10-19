@@ -146,7 +146,7 @@ test('Static site poller creates an event when agent approves the change', {
       data: {
         topicId: topic.id,
         sourceUrl: 'https://example.com/typescript',
-        type: 'Website',
+        type: 'Static Page',
         lastFetchedAt: new Date(Date.now() - 20 * 60 * 1000),
         lastContent: initialContent
       }
@@ -226,7 +226,7 @@ test('Static site poller skips event when agent rejects the change', {
       data: {
         topicId: topic.id,
         sourceUrl: 'https://example.com/typescript',
-        type: 'Website',
+        type: 'Static Page',
         lastFetchedAt: new Date(Date.now() - 20 * 60 * 1000),
         lastContent: initialContent
       }

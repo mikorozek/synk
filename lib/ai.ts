@@ -11,6 +11,10 @@ const SourceDiscoverySchema = z.object({
       description: z.string(),
     })
   ),
+  initialReport: z.object({
+    title: z.string().describe('A concise title for the initial status report'),
+    summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
+  }),
 });
 
 // Schema for title generation response
@@ -147,7 +151,33 @@ export async function discoverSources(
 
     console.log(`[AI] Processed ${sources.length} sources`);
 
-    return { sources };
+    // Generate initial report based on discovered sources
+    console.log('[AI] Generating initial report');
+    const reportResult = await generateObject({
+      model: openai('gpt-5'),
+      mode: 'json',
+      schema: z.object({
+        title: z.string().describe('A concise title for the initial status report'),
+        summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
+      }),
+      system: 'You are creating an initial status report for a new monitoring topic. The report should confirm what sources were found and what will be tracked.',
+      prompt: `User's request: ${prompt}
+
+Discovered sources:
+${sources.map((s, i) => `${i + 1}. ${s.description} (${s.url})`).join('\n')}
+
+Create an initial report that:
+- Has a clear, concise title (e.g., "Monitoring Setup Complete" or "Started Tracking [Topic]")
+- Summarizes what sources were found and confirms what will be monitored
+- Is encouraging and confirms the tracking has begun`,
+    });
+
+    console.log('[AI] Initial report generated');
+
+    return {
+      sources,
+      initialReport: reportResult.object
+    };
   } catch (error) {
     console.error('[AI] Source discovery failed:', error);
     throw new Error(
@@ -278,7 +308,6 @@ export interface EvaluateStaticSiteChangeInput {
     sourceUrl: string;
     oldContent: string | null;
     newContent: string;
-    diff: string;
   };
 }
 
@@ -294,7 +323,6 @@ export async function evaluateStaticSiteChange(
 
   const sanitizedOldContent = change.oldContent?.trim() || '_Previous content not available._';
   const sanitizedNewContent = change.newContent.trim() || '_New content is empty._';
-  const sanitizedDiff = change.diff.trim() || '_No diff calculated._';
 
   try {
     const result = await generateObject({
@@ -302,10 +330,11 @@ export async function evaluateStaticSiteChange(
       mode: 'json',
       schema: NotificationEvaluationSchema,
       system: `You review website changes and decide if the update warrants notifying the user.
+Compare the old content with the new content to identify what changed.
 If the change is irrelevant to the user's interests, set matchesUserPrompt to false and both notification fields to null.
 If it is relevant, craft a clear notification name and description summarizing the meaningful change.
 Respond strictly with JSON and do not include extra keys.` ,
-      prompt: `Topic Prompt:\n${topicPrompt}\n\nConversation History:\n${conversationMarkdown}\n\nRecent Events (Most recent first):\n${eventsMarkdown}\n\nWebsite Change Details:\n- Source URL: ${change.sourceUrl}\n\nPrevious Content:\n\n\`\`\`markdown\n${sanitizedOldContent}\n\`\`\`\n\nNew Content:\n\n\`\`\`markdown\n${sanitizedNewContent}\n\`\`\`\n\nDiff Summary:\n\n\`\`\`diff\n${sanitizedDiff}\n\`\`\`\n\nExplain whether this change matches the user's interests before deciding.`
+      prompt: `Topic Prompt:\n${topicPrompt}\n\nConversation History:\n${conversationMarkdown}\n\nRecent Events (Most recent first):\n${eventsMarkdown}\n\nWebsite Change Details:\n- Source URL: ${change.sourceUrl}\n\nPrevious Content:\n\n\`\`\`markdown\n${sanitizedOldContent}\n\`\`\`\n\nNew Content:\n\n\`\`\`markdown\n${sanitizedNewContent}\n\`\`\`\n\nAnalyze the differences between the old and new content. Determine what changed and whether this change matches the user's interests.`
     });
 
     console.log('[AI] Static site change evaluation completed');

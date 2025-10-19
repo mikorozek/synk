@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
-import fastDiff from 'fast-diff';
 import { evaluateStaticSiteChange } from '@/lib/ai';
+import crypto from 'crypto';
 
 interface StaticSitePollingResult {
     polled: number;
@@ -25,6 +25,10 @@ interface ProcessedSource {
     error?: string;
 }
 
+function hashContent(content: string): string {
+    return crypto.createHash('sha256').update(content).digest('hex');
+}
+
 type SourceWithTopic = Prisma.SourceGetPayload<{
     include: {
         topic: {
@@ -41,12 +45,12 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
 
     const sourcesToPoll = await prisma.source.findMany({
         where: {
-            type: 'Website',
+            type: 'Static Page',
             OR: [
                 { lastFetchedAt: null },
                 {
                     lastFetchedAt: {
-                        lt: new Date(Date.now() - 15 * 60 * 1000)
+                        lt: new Date(Date.now() - 1 * 60 * 1000)
                     }
                 }
             ]
@@ -62,7 +66,7 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
         }
     });
 
-    console.log(`[Static Site Poller] Found ${sourcesToPoll.length} Website sources to poll`);
+    console.log(`[Static Site Poller] Found ${sourcesToPoll.length} Static Page sources to poll`);
 
     for (const source of sourcesToPoll) {
         try {
@@ -110,6 +114,7 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
 }
 
 async function processSingleStaticSite(source: SourceWithTopic): Promise<ProcessedSource> {
+    console.log(`[Static Site Poller] ========================================`);
     console.log(`[Static Site Poller] Processing source ${source.id}: ${source.sourceUrl}`);
 
     try {
@@ -130,6 +135,10 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
             };
         }
 
+        const newContentHash = hashContent(newContent);
+        console.log(`[Static Site Poller] New content hash: ${newContentHash}`);
+        console.log(`[Static Site Poller] New content length: ${newContent.length} characters`);
+
         let hasChanges = false;
 
         const conversationMessages = (source.topic.conversationMessages || []).map(message => ({
@@ -139,6 +148,7 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
 
         if (!source.lastContent) {
             console.log(`[Static Site Poller] First scrape for source ${source.id} - storing initial content`);
+            console.log(`[Static Site Poller] Initial content preview (first 200 chars): ${newContent.substring(0, 200)}...`);
 
             await prisma.source.update({
                 where: { id: source.id },
@@ -150,14 +160,22 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
 
             hasChanges = false;
         } else {
-            const diff = fastDiff(source.lastContent, newContent);
-            hasChanges = diff.some(([operation]: [number, string]) => operation !== fastDiff.EQUAL);
+            const oldContentHash = hashContent(source.lastContent);
+            console.log(`[Static Site Poller] Old content hash: ${oldContentHash}`);
+            console.log(`[Static Site Poller] Old content length: ${source.lastContent.length} characters`);
+
+            // Simple string comparison to detect changes
+            hasChanges = source.lastContent !== newContent;
 
             if (hasChanges) {
-                console.log(`[Static Site Poller] Changes detected for source ${source.id} (${source.sourceUrl})`);
-                console.log(`[Static Site Poller] Diff summary:`);
-
-                const { diffOutput } = logLineLevelDiff(source.lastContent, newContent);
+                console.log(`[Static Site Poller] ⚠️  CHANGES DETECTED for source ${source.id} (${source.sourceUrl})`);
+                console.log(`[Static Site Poller] Hash comparison: ${oldContentHash} -> ${newContentHash}`);
+                console.log(`[Static Site Poller] Length change: ${source.lastContent.length} -> ${newContent.length} (diff: ${newContent.length - source.lastContent.length})`);
+                console.log(`[Static Site Poller] --- OLD CONTENT (first 500 chars) ---`);
+                console.log(source.lastContent.substring(0, 500));
+                console.log(`[Static Site Poller] --- NEW CONTENT (first 500 chars) ---`);
+                console.log(newContent.substring(0, 500));
+                console.log(`[Static Site Poller] --- END CONTENT COMPARISON ---`);
 
                 const previousEvents = await prisma.event.findMany({
                     where: { topicId: source.topicId },
@@ -174,6 +192,11 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                 let eventCreated = false;
 
                 try {
+                    console.log(`[Static Site Poller] Sending to AI for evaluation...`);
+                    console.log(`[Static Site Poller] Topic prompt: ${source.topic.prompt}`);
+                    console.log(`[Static Site Poller] Previous events count: ${eventsForContext.length}`);
+                    console.log(`[Static Site Poller] Conversation messages count: ${conversationMessages.length}`);
+
                     const evaluation = await evaluateStaticSiteChange({
                         topicPrompt: source.topic.prompt,
                         conversation: conversationMessages,
@@ -181,13 +204,17 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                         change: {
                             sourceUrl: source.sourceUrl,
                             oldContent: source.lastContent,
-                            newContent,
-                            diff: diffOutput
+                            newContent
                         }
                     });
 
+                    console.log(`[Static Site Poller] AI evaluation completed`);
+                    console.log(`[Static Site Poller] matchesUserPrompt: ${evaluation.matchesUserPrompt}`);
+                    console.log(`[Static Site Poller] notificationName: ${evaluation.notificationName}`);
+                    console.log(`[Static Site Poller] notificationDescription: ${evaluation.notificationDescription}`);
+
                     if (!evaluation.matchesUserPrompt) {
-                        console.log(`[Static Site Poller] Agent rejected change for source ${source.id}`);
+                        console.log(`[Static Site Poller] ❌ Agent rejected change for source ${source.id}`);
                     } else {
                         const notificationTitle = evaluation.notificationName?.trim();
                         const notificationSummary = evaluation.notificationDescription?.trim() || null;
@@ -195,6 +222,10 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                         if (!notificationTitle) {
                             throw new Error('Agent returned matchesUserPrompt=true without notificationName');
                         }
+
+                        console.log(`[Static Site Poller] ✅ Creating event...`);
+                        console.log(`[Static Site Poller] Event title: ${notificationTitle}`);
+                        console.log(`[Static Site Poller] Event summary: ${notificationSummary}`);
 
                         const now = new Date();
                         await prisma.event.create({
@@ -204,12 +235,11 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                                 summary: notificationSummary,
                                 eventUrl: source.sourceUrl,
                                 publishedAt: now,
-                                contentDiff: diffOutput,
                                 unread: true
                             }
                         });
 
-                        console.log(`[Static Site Poller] Created agent-approved event for source ${source.id}`);
+                        console.log(`[Static Site Poller] ✅ Created agent-approved event for source ${source.id}`);
                         eventCreated = true;
                     }
                 } catch (error) {
@@ -217,6 +247,7 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                     throw error;
                 }
 
+                console.log(`[Static Site Poller] Updating source with new content...`);
                 await prisma.source.update({
                     where: { id: source.id },
                     data: {
@@ -224,6 +255,7 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                         lastFetchedAt: new Date()
                     }
                 });
+                console.log(`[Static Site Poller] Source ${source.id} updated successfully`);
 
                 return {
                     sourceId: source.id,
@@ -232,7 +264,8 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
                     eventCreated
                 };
             } else {
-                console.log(`[Static Site Poller] No changes detected for source ${source.id}`);
+                console.log(`[Static Site Poller] ✓ No changes detected for source ${source.id}`);
+                console.log(`[Static Site Poller] Content hash matches: ${oldContentHash}`);
 
                 await prisma.source.update({
                     where: { id: source.id },
@@ -241,6 +274,7 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
             }
         }
 
+        console.log(`[Static Site Poller] Completed processing source ${source.id}`);
         return {
             sourceId: source.id,
             success: true,
@@ -249,7 +283,11 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
         };
 
     } catch (error) {
-        console.error(`[Static Site Poller] Error processing source ${source.id} (${source.sourceUrl}):`, error);
+        console.error(`[Static Site Poller] ❌ Error processing source ${source.id} (${source.sourceUrl}):`, error);
+        if (error instanceof Error) {
+            console.error(`[Static Site Poller] Error message: ${error.message}`);
+            console.error(`[Static Site Poller] Error stack: ${error.stack}`);
+        }
 
         return {
             sourceId: source.id,
@@ -258,10 +296,13 @@ async function processSingleStaticSite(source: SourceWithTopic): Promise<Process
             eventCreated: false,
             error: error instanceof Error ? error.message : 'Unknown error'
         };
+    } finally {
+        console.log(`[Static Site Poller] ========================================`);
     }
 }
 
 async function scrapeWithFirecrawl(url: string): Promise<string | null> {
+    console.log(`[Static Site Poller] Scraping URL with Firecrawl: ${url}`);
     const firecrawlApiKey = process.env.FIRECRAWL_API_KEY;
 
     if (!firecrawlApiKey) {
@@ -285,66 +326,30 @@ async function scrapeWithFirecrawl(url: string): Promise<string | null> {
     };
 
     try {
+        console.log(`[Static Site Poller] Sending request to Firecrawl API...`);
         const response = await fetch(firecrawlUrl, options);
 
         if (!response.ok) {
+            console.error(`[Static Site Poller] Firecrawl API returned error status: ${response.status}`);
             throw new Error(`Firecrawl API error: ${response.status} ${response.statusText}`);
         }
 
         const data = await response.json();
+        console.log(`[Static Site Poller] Firecrawl API response received`);
+        console.log(`[Static Site Poller] Success: ${data.success}, Has data: ${!!data.data}, Has markdown: ${!!(data.data?.markdown)}`);
 
         if (data.success && data.data && data.data.markdown) {
+            console.log(`[Static Site Poller] Successfully scraped ${url} - content length: ${data.data.markdown.length}`);
             return data.data.markdown;
         } else {
-            console.warn(`[Static Site Poller] Firecrawl returned no markdown content for ${url}:`, data);
+            console.warn(`[Static Site Poller] Firecrawl returned no markdown content for ${url}:`, JSON.stringify(data, null, 2));
             return null;
         }
     } catch (error) {
-        console.error(`[Static Site Poller] Firecrawl API error for ${url}:`, error);
+        console.error(`[Static Site Poller] ❌ Firecrawl API error for ${url}:`, error);
+        if (error instanceof Error) {
+            console.error(`[Static Site Poller] Error details: ${error.message}`);
+        }
         throw error;
     }
-}
-
-function logLineLevelDiff(oldContent: string, newContent: string): { diffOutput: string } {
-    const diff = fastDiff(oldContent, newContent);
-
-    let diffOutput = '';
-    let addedLines = 0;
-    let removedLines = 0;
-
-    console.log(`[Static Site Poller] === DIFF START ===`);
-
-    for (const [operation, text] of diff) {
-        const lines = text.split('\n');
-
-        switch (operation) {
-            case fastDiff.INSERT:
-                for (const line of lines) {
-                    if (line !== '' || lines.length === 1) {
-                        const formattedLine = `+ ${line}`;
-                        console.log(`[Static Site Poller] ${formattedLine}`);
-                        diffOutput += formattedLine + '\n';
-                        addedLines++;
-                    }
-                }
-                break;
-            case fastDiff.DELETE:
-                for (const line of lines) {
-                    if (line !== '' || lines.length === 1) {
-                        const formattedLine = `- ${line}`;
-                        console.log(`[Static Site Poller] ${formattedLine}`);
-                        diffOutput += formattedLine + '\n';
-                        removedLines++;
-                    }
-                }
-                break;
-            case fastDiff.EQUAL:
-                break;
-        }
-    }
-
-    console.log(`[Static Site Poller] === DIFF END ===`);
-    console.log(`[Static Site Poller] Summary: +${addedLines} lines added, -${removedLines} lines removed`);
-
-    return { diffOutput: diffOutput.trim() };
 }

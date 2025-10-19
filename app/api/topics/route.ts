@@ -113,6 +113,26 @@ export async function POST(request: Request) {
             }
         }
 
+        // Step 6.5: Create initial event from the initial report
+        try {
+            console.log(`[API] Creating initial event for topic ${newTopic.id}`);
+            await prisma.event.create({
+                data: {
+                    topicId: newTopic.id,
+                    title: sourcesResult.initialReport.title,
+                    summary: sourcesResult.initialReport.summary,
+                    eventUrl: null,
+                    publishedAt: new Date(),
+                    contentDiff: null,
+                    unread: true
+                }
+            });
+            console.log('[API] Initial event created successfully');
+        } catch (error) {
+            console.error('[API] Failed to create initial event:', error);
+            // Don't fail the request if initial event creation fails
+        }
+
         // Step 7: Return response with topic data and AI-generated sources
         console.log("[API] POST request completed successfully");
         return NextResponse.json(
