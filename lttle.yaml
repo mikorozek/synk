@@ -25,6 +25,8 @@ app:
     POSTGRES_DB: ${{ env.POSTGRES_DB }}
     POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
     POSTGRES_USER: ${{ env.POSTGRES_USER }}
+    OPENAI_API_KEY: ${{ env.OPENAI_API_KEY }}
+    FIRECRAWL_API_KEY: ${{ env.FIRECRAWL_API_KEY }}
   depends-on:
   - name: db
     namespace: synk
