@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
@@ -16,10 +17,12 @@ export function CTA() {
         </p>
 
         <div className="flex justify-center">
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8 h-12">
-            Start Free Trial
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <Link href="/chat">
+            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8 h-12">
+              Start Free Trial
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
 
         <p className="text-sm text-muted-foreground mt-6">
