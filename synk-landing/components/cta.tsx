@@ -10,9 +10,9 @@ export function CTA() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--accent)_0%,_transparent_50%)] opacity-10" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Ready to transform your notifications?</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Struggling with notification chaos?</h2>
         <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance leading-relaxed">
-          Join thousands of teams using Synk to stay informed without the noise.
+        You're not alone. Join thousands who've found clarity with Synk.
         </p>
 
         <div className="flex justify-center">
