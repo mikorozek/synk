@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
@@ -9,12 +9,17 @@ import { TopicBoard } from "@/components/topic-board";
 import { useToast } from "@/hooks/use-toast";
 import { List } from "lucide-react";
 
+// Polling interval in milliseconds (5 seconds)
+const POLLING_INTERVAL = 5000;
+
 export default function HomePage() {
     const [topics, setTopics] = useState<Topic[]>([]);
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
     const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const { toast } = useToast();
+    const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const loadEvents = async () => {
         try {
@@ -82,13 +87,7 @@ export default function HomePage() {
     }, [toast]);
 
 
-    const handleCreateTopic = async (title: string, prompt: string) => {
-        // This is called by ChatFlowWrapper after the topic has already been created
-        // We just need to update the local state
-        // The API call is made inside ChatFlowWrapper with the conversation context
-
-        // Reload topics from the server to get the latest
-        try {
+            // Load topics
             const topicsResponse = await fetch("/api/topics");
             if (topicsResponse.ok) {
                 const apiTopics = await topicsResponse.json();
@@ -100,6 +99,7 @@ export default function HomePage() {
                     multiverseXYoloMode: topic.multiverseXYoloMode || false,
                 }));
                 setTopics(formattedTopics);
+            }
 
                 // Also reload events to capture any new events
                 await loadEvents();
@@ -108,17 +108,51 @@ export default function HomePage() {
                 // This allows them to see the completion message and choose when to proceed
 
                 toast({
-                    title: "Topic created",
-                    description: `Now tracking "${title}"`,
+                    title: "Failed to load data",
+                    description: "Could not connect to the server",
+                    variant: "destructive",
                 });
             }
-        } catch (error) {
-            console.error("Error loading topics:", error);
-            toast({
-                title: "Topic created",
-                description: `Now tracking "${title}"`,
-            });
+        } finally {
+            if (!silent) {
+                setIsRefreshing(false);
+            }
         }
+    }, [toast]);
+
+    // Initial load
+    useEffect(() => {
+        loadData(false);
+    }, [loadData]);
+
+    // Setup polling
+    useEffect(() => {
+        // Start polling
+        pollingIntervalRef.current = setInterval(() => {
+            loadData(true); // Silent refresh
+        }, POLLING_INTERVAL);
+
+        // Cleanup on unmount
+        return () => {
+            if (pollingIntervalRef.current) {
+                clearInterval(pollingIntervalRef.current);
+            }
+        };
+    }, [loadData]);
+
+
+    const handleCreateTopic = async (title: string, prompt: string) => {
+        // This is called by ChatFlowWrapper after the topic has already been created
+        // We just need to update the local state
+        // The API call is made inside ChatFlowWrapper with the conversation context
+
+        // Reload topics from the server to get the latest
+        await loadData(false);
+
+        toast({
+            title: "Topic created",
+            description: `Now tracking "${title}"`,
+        });
     };
 
     const handleTopicClick = async (topic: Topic) => {
@@ -370,7 +404,37 @@ export default function HomePage() {
                     onNewChat={handleBack}
                     onDeleteTopic={handleDeleteTopic}
                     onRenameTopic={handleRenameTopic}
-                    onToggleYoloMode={handleToggleYoloMode}
+                    onTo
+40
+ 
+                }));
+41
+ 
+                setNotifications(formattedNotifications);
+42
+ 
+            }
+43
+ 
+        } catch (error) {
+44
+ 
+            console.error("Error loading events from API:", error);
+45
+ 
+        }
+46
+ 
+    };
+47
+ 
+​
+48
+ 
+    useEffect(() => {
+49
+ 
+        const loadData = async () => {ggleYoloMode={handleToggleYoloMode}
                 />
             </SlidingSidebar>
 
