@@ -4,13 +4,17 @@ import { z } from 'zod';
 
 // Schema for source discovery response
 const SourceDiscoverySchema = z.object({
-    sources: z.array(
-        z.object({
-            url: z.string(),
-            type: z.enum(['RSS', 'Static Page']),
-            description: z.string(),
-        })
-    ),
+  sources: z.array(
+    z.object({
+      url: z.string(),
+      type: z.enum(['RSS', 'Static Page']),
+      description: z.string(),
+    })
+  ),
+  initialReport: z.object({
+    title: z.string().describe('A concise title for the initial status report'),
+    summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
+  }),
 });
 
 // Schema for title generation response
@@ -18,8 +22,43 @@ const TitleGenerationSchema = z.object({
     title: z.string(),
 });
 
+const NotificationEvaluationSchema = z.object({
+  matchesUserPrompt: z.boolean(),
+  notificationName: z.string().min(1).nullable(),
+  notificationDescription: z.string().min(1).nullable()
+}).superRefine((data, ctx) => {
+  if (data.matchesUserPrompt) {
+    if (!data.notificationName) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'notificationName is required when matchesUserPrompt is true'
+      });
+    }
+    if (!data.notificationDescription) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'notificationDescription is required when matchesUserPrompt is true'
+      });
+    }
+  }
+});
+
 export type SourceDiscoveryResult = z.infer<typeof SourceDiscoverySchema>;
 export type TitleGenerationResult = z.infer<typeof TitleGenerationSchema>;
+export type NotificationEvaluationResult = z.infer<typeof NotificationEvaluationSchema>;
+
+export interface EvaluateRssItemInput {
+  topicPrompt: string;
+  conversation: Array<{ role: 'user' | 'assistant'; content: string }>;
+  previousEvents: Array<{ title: string; summary: string | null; url: string | null }>;
+  rssItem: {
+    title?: string | null;
+    summary?: string | null;
+    content?: string | null;
+    url?: string | null;
+    publishedAt?: string | Date | null;
+  };
+}
 
 /**
  * Generates clarifying questions to better understand what the user wants to track
@@ -114,7 +153,33 @@ export async function discoverSources(
 
         console.log(`[AI] Processed ${sources.length} sources`);
 
-        return { sources };
+        // Generate initial report based on discovered sources
+        console.log('[AI] Generating initial report');
+        const reportResult = await generateObject({
+            model: openai('gpt-5'),
+            mode: 'json',
+            schema: z.object({
+                title: z.string().describe('A concise title for the initial status report'),
+                summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
+            }),
+            system: 'You are creating an initial status report for a new monitoring topic. The report should confirm what sources were found and what will be tracked.',
+            prompt: `User's request: ${prompt}
+
+Discovered sources:
+${sources.map((s, i) => `${i + 1}. ${s.description} (${s.url})`).join('\n')}
+
+Create an initial report that:
+- Has a clear, concise title (e.g., "Monitoring Setup Complete" or "Started Tracking [Topic]")
+- Summarizes what sources were found and confirms what will be monitored
+- Is encouraging and confirms the tracking has begun`,
+        });
+
+        console.log('[AI] Initial report generated');
+
+        return {
+            sources,
+            initialReport: reportResult.object
+        };
     } catch (error) {
         console.error('[AI] Source discovery failed:', error);
         throw new Error(
@@ -169,4 +234,117 @@ export async function generateTitle(
             `Failed to generate title: ${error instanceof Error ? error.message : 'Unknown error'}`
         );
     }
+}
+
+function formatConversationForAgent(messages: Array<{ role: 'user' | 'assistant'; content: string }>): string {
+  if (messages.length === 0) {
+    return 'No conversation history available.';
+  }
+
+  return messages
+    .map(message => {
+      const speaker = message.role === 'assistant' ? 'Assistant' : 'User';
+      return `**${speaker}:** ${message.content}`;
+    })
+    .join('\n\n');
+}
+
+function formatEventsForAgent(events: Array<{ title: string; summary: string | null; url: string | null }>): string {
+  if (events.length === 0) {
+    return 'No recent events have been recorded.';
+  }
+
+  return events
+    .map((event, index) => {
+      const summary = event.summary?.trim() ? event.summary : '_No summary provided._';
+      const url = event.url?.trim() ? event.url : '_No URL available._';
+      return `### Event ${index + 1}: ${event.title}\n- Summary: ${summary}\n- URL: ${url}`;
+    })
+    .join('\n\n');
+}
+
+export async function evaluateRssItemRelevance(
+  input: EvaluateRssItemInput
+): Promise<NotificationEvaluationResult> {
+  const { topicPrompt, conversation, previousEvents, rssItem } = input;
+
+  console.log('[AI] Evaluating RSS item against topic context');
+
+  const conversationMarkdown = formatConversationForAgent(conversation);
+  const eventsMarkdown = formatEventsForAgent(previousEvents);
+
+  const rssSummary = rssItem.summary?.trim() || rssItem.content?.trim() || '_No summary provided._';
+  const rssUrl = rssItem.url?.trim() || '_No URL provided._';
+  const rssPublishedAt = rssItem.publishedAt
+    ? (rssItem.publishedAt instanceof Date ? rssItem.publishedAt.toISOString() : rssItem.publishedAt)
+    : '_No published date provided._';
+
+  try {
+    const result = await generateObject({
+      model: openai('gpt-5'),
+      mode: 'json',
+      schema: NotificationEvaluationSchema,
+      system: `You are an assistant that reviews incoming RSS items for relevance to a user's topic.
+Evaluate whether the new item should trigger a notification for the user.
+Respond strictly with JSON that matches the provided schema.
+When the item is not relevant, set both notification fields to null.
+Do not include any additional keys or prose.` ,
+      prompt: `Topic Prompt:\n${topicPrompt}\n\nConversation History:\n${conversationMarkdown}\n\nRecent Events (Most recent first):\n${eventsMarkdown}\n\nNew RSS Item:\n- Title: ${rssItem.title || 'Untitled'}\n- Summary: ${rssSummary}\n- URL: ${rssUrl}\n- Published At: ${rssPublishedAt}\n\nDecide if this RSS item matches the user's interests. If it does, craft a clear, concise notification name and description that the user will see. The notification should not duplicate recent events unless there is meaningful new information.`
+    });
+
+    console.log('[AI] RSS item evaluation completed');
+    return result.object;
+  } catch (error) {
+    console.error('[AI] RSS item evaluation failed:', error);
+    throw new Error(
+      `Failed to evaluate RSS item: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
+}
+
+export interface EvaluateStaticSiteChangeInput {
+  topicPrompt: string;
+  conversation: Array<{ role: 'user' | 'assistant'; content: string }>;
+  previousEvents: Array<{ title: string; summary: string | null; url: string | null }>;
+  change: {
+    sourceUrl: string;
+    oldContent: string | null;
+    newContent: string;
+  };
+}
+
+export async function evaluateStaticSiteChange(
+  input: EvaluateStaticSiteChangeInput
+): Promise<NotificationEvaluationResult> {
+  const { topicPrompt, conversation, previousEvents, change } = input;
+
+  console.log('[AI] Evaluating static site change against topic context');
+
+  const conversationMarkdown = formatConversationForAgent(conversation);
+  const eventsMarkdown = formatEventsForAgent(previousEvents);
+
+  const sanitizedOldContent = change.oldContent?.trim() || '_Previous content not available._';
+  const sanitizedNewContent = change.newContent.trim() || '_New content is empty._';
+
+  try {
+    const result = await generateObject({
+      model: openai('gpt-5'),
+      mode: 'json',
+      schema: NotificationEvaluationSchema,
+      system: `You review website changes and decide if the update warrants notifying the user.
+Compare the old content with the new content to identify what changed.
+If the change is irrelevant to the user's interests, set matchesUserPrompt to false and both notification fields to null.
+If it is relevant, craft a clear notification name and description summarizing the meaningful change.
+Respond strictly with JSON and do not include extra keys.` ,
+      prompt: `Topic Prompt:\n${topicPrompt}\n\nConversation History:\n${conversationMarkdown}\n\nRecent Events (Most recent first):\n${eventsMarkdown}\n\nWebsite Change Details:\n- Source URL: ${change.sourceUrl}\n\nPrevious Content:\n\n\`\`\`markdown\n${sanitizedOldContent}\n\`\`\`\n\nNew Content:\n\n\`\`\`markdown\n${sanitizedNewContent}\n\`\`\`\n\nAnalyze the differences between the old and new content. Determine what changed and whether this change matches the user's interests.`
+    });
+
+    console.log('[AI] Static site change evaluation completed');
+    return result.object;
+  } catch (error) {
+    console.error('[AI] Static site change evaluation failed:', error);
+    throw new Error(
+      `Failed to evaluate static site change: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
 }

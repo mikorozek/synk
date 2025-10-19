@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, ExternalLink, MoreHorizontal, Check, X, Trash2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, MoreHorizontal, Check, X, Trash2, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TopicBoardProps {
@@ -82,7 +82,8 @@ export function TopicBoard({
                 key={notification.id}
                 className={cn(
                   "transition-all hover:shadow-md cursor-pointer group",
-                  !notification.isRead && "border-primary/50 bg-accent/30"
+                  !notification.isRead && "border-primary/50 bg-accent/30",
+                  notification.fromYoloMode && "border-yellow-600/60 bg-yellow-50/40 dark:border-yellow-500/50 dark:bg-yellow-900/20"
                 )}
                 onClick={() => onMarkAsRead(notification.id)}
               >
@@ -90,15 +91,29 @@ export function TopicBoard({
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center gap-2">
+                        {notification.fromYoloMode && (
+                          <Zap className="w-4 h-4 text-yellow-600 dark:text-yellow-500 shrink-0" />
+                        )}
                         <CardTitle className="text-lg text-balance">
                           {notification.title}
                         </CardTitle>
                         {!notification.isRead && (
-                          <div className="w-2 h-2 bg-primary rounded-full" />
+                          <div className={cn(
+                            "w-2 h-2 rounded-full",
+                            notification.fromYoloMode ? "bg-yellow-600 dark:bg-yellow-500" : "bg-primary"
+                          )} />
                         )}
                       </div>
                       <CardDescription className="flex items-center gap-2 text-xs">
                         <span className="font-medium">{notification.source}</span>
+                        {notification.fromYoloMode && (
+                          <>
+                            <span>•</span>
+                            <span className="text-yellow-600 dark:text-yellow-500 font-medium">
+                              Yolo Mode
+                            </span>
+                          </>
+                        )}
                         <span>•</span>
                         <span>
                           {formatDistanceToNow(notification.createdAt, {

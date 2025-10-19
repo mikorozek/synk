@@ -1,5 +1,7 @@
 import Parser from 'rss-parser';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
+import { evaluateRssItemRelevance } from '@/lib/ai';
 
 const parser = new Parser();
 
@@ -23,6 +25,16 @@ interface ProcessedSource {
   error?: string;
 }
 
+type SourceWithTopic = Prisma.SourceGetPayload<{
+  include: {
+    topic: {
+      include: {
+        conversationMessages: true;
+      };
+    };
+  };
+}>;
+
 export async function pollRSSSources(): Promise<RSSPollingResult> {
   const startTime = Date.now();
   const results: ProcessedSource[] = [];
@@ -41,7 +53,13 @@ export async function pollRSSSources(): Promise<RSSPollingResult> {
       ]
     },
     include: {
-      topic: true // Include topic for context
+      topic: {
+        include: {
+          conversationMessages: {
+            orderBy: { createdAt: 'asc' }
+          }
+        }
+      }
     }
   });
 
@@ -87,7 +105,7 @@ export async function pollRSSSources(): Promise<RSSPollingResult> {
   };
 }
 
-async function processSingleSource(source: any): Promise<ProcessedSource> {
+async function processSingleSource(source: SourceWithTopic): Promise<ProcessedSource> {
   try {
     // Fetch and parse RSS feed
     const feed = await parser.parseURL(source.sourceUrl);
@@ -133,53 +151,81 @@ async function processSingleSource(source: any): Promise<ProcessedSource> {
     }
 
     // Create events for new items (skip on first poll to avoid old items)
+    const conversationMessages = (source.topic.conversationMessages || []).map(message => ({
+      role: message.role === 'assistant' ? 'assistant' : 'user',
+      content: message.content
+    }));
+
     let createdCount = 0;
     if (!isFirstPoll && newItems.length > 0) {
-      // Prepare event data for batch insert
-      const eventsToCreate = newItems.map(item => {
-        const publishedAt = item.pubDate || item.isoDate || item.published;
-        const publishedDate = publishedAt ? new Date(publishedAt) : null;
-
-        return {
-          title: item.title || 'Untitled',
-          summary: item.contentSnippet || item.content || item.description || null,
-          eventUrl: item.link || null,
-          topicId: source.topicId,
-          publishedAt: publishedDate,
-          unread: true
-        };
+      const previousEvents = await prisma.event.findMany({
+        where: { topicId: source.topicId },
+        orderBy: { createdAt: 'desc' },
+        take: 10
       });
 
-      try {
-        // Batch insert all events at once for better performance
-        const result = await prisma.event.createMany({
-          data: eventsToCreate,
-          skipDuplicates: true // Skip if eventUrl already exists (if unique constraint added)
-        });
-        createdCount = result.count;
-      } catch (error) {
-        console.error(`Failed to create events for source ${source.id}:`, error);
-        // Fall back to individual inserts if batch fails
-        for (const item of newItems) {
-          try {
-            const publishedAt = item.pubDate || item.isoDate || item.published;
-            const publishedDate = publishedAt ? new Date(publishedAt) : null;
+      const eventsForContext = previousEvents.map(event => ({
+        title: event.title,
+        summary: event.summary,
+        url: event.eventUrl
+      }));
 
-            await prisma.event.create({
-              data: {
-                title: item.title || 'Untitled',
-                summary: item.contentSnippet || item.content || item.description || null,
-                eventUrl: item.link || null,
-                topicId: source.topicId,
-                publishedAt: publishedDate,
-                unread: true
-              }
-            });
-            createdCount++;
-          } catch (error) {
-            console.error(`Failed to create event for item: ${item.title}`, error);
-            // Continue processing other items
+      const itemsToProcess = [...newItems].reverse();
+
+      for (const item of itemsToProcess) {
+        const publishedAtRaw = item.pubDate || item.isoDate || item.published;
+        const publishedDate = publishedAtRaw ? new Date(publishedAtRaw) : null;
+
+        try {
+          const evaluation = await evaluateRssItemRelevance({
+            topicPrompt: source.topic.prompt,
+            conversation: conversationMessages,
+            previousEvents: eventsForContext,
+            rssItem: {
+              title: item.title,
+              summary: item.contentSnippet || item.description || item.content || null,
+              content: item.content || item.contentSnippet || item.description || null,
+              url: item.link || null,
+              publishedAt: publishedDate ? publishedDate.toISOString() : null
+            }
+          });
+
+          if (!evaluation.matchesUserPrompt) {
+            continue;
           }
+
+          const notificationTitle = evaluation.notificationName?.trim();
+          const notificationSummary = evaluation.notificationDescription?.trim() || null;
+
+          if (!notificationTitle) {
+            throw new Error('Agent returned matchesUserPrompt=true without notificationName');
+          }
+
+          const createdEvent = await prisma.event.create({
+            data: {
+              title: notificationTitle,
+              summary: notificationSummary,
+              eventUrl: item.link || null,
+              topicId: source.topicId,
+              publishedAt: publishedDate,
+              unread: true
+            }
+          });
+
+          createdCount++;
+
+          eventsForContext.unshift({
+            title: createdEvent.title,
+            summary: createdEvent.summary,
+            url: createdEvent.eventUrl
+          });
+
+          if (eventsForContext.length > 10) {
+            eventsForContext.pop();
+          }
+        } catch (error) {
+          console.error(`[RSS Poller] Failed during agent evaluation for source ${source.id}:`, error);
+          throw error;
         }
       }
     } else if (isFirstPoll) {

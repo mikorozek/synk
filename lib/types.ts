@@ -3,6 +3,7 @@ export interface Topic {
   title: string;
   prompt: string;
   createdAt: Date;
+  multiverseXYoloMode?: boolean;
 }
 
 export interface Notification {
@@ -14,6 +15,7 @@ export interface Notification {
   url?: string;
   createdAt: Date;
   isRead: boolean;
+  fromYoloMode?: boolean;
 }
 
 export interface AppState {

@@ -78,7 +78,23 @@ export async function POST(request: Request) {
             );
         }
 
-        // Step 5: Store sources in database
+        // Step 5: Store conversation history for this topic
+        if (conversation && Array.isArray(conversation) && conversation.length > 0) {
+            try {
+                console.log(`[API] Persisting ${conversation.length} conversation messages for topic ${newTopic.id}`);
+                await prisma.topicConversationMessage.createMany({
+                    data: conversation.map((msg: { role: string; content: string }) => ({
+                        topicId: newTopic.id,
+                        role: msg.role === 'assistant' ? 'assistant' : 'user',
+                        content: msg.content
+                    }))
+                });
+            } catch (error) {
+                console.error("[API] Failed to store conversation history:", error);
+            }
+        }
+
+        // Step 6: Store sources in database
         const savedSources = [];
         for (const source of sourcesResult.sources) {
             try {
@@ -97,7 +113,27 @@ export async function POST(request: Request) {
             }
         }
 
-        // Step 6: Return response with topic data and AI-generated sources
+        // Step 6.5: Create initial event from the initial report
+        try {
+            console.log(`[API] Creating initial event for topic ${newTopic.id}`);
+            await prisma.event.create({
+                data: {
+                    topicId: newTopic.id,
+                    title: sourcesResult.initialReport.title,
+                    summary: sourcesResult.initialReport.summary,
+                    eventUrl: null,
+                    publishedAt: new Date(),
+                    contentDiff: null,
+                    unread: true
+                }
+            });
+            console.log('[API] Initial event created successfully');
+        } catch (error) {
+            console.error('[API] Failed to create initial event:', error);
+            // Don't fail the request if initial event creation fails
+        }
+
+        // Step 7: Return response with topic data and AI-generated sources
         console.log("[API] POST request completed successfully");
         return NextResponse.json(
             {
@@ -155,7 +191,7 @@ export async function PATCH(request: Request) {
         const { searchParams } = new URL(request.url);
         const id = searchParams.get("id");
         const body = await request.json();
-        const { title } = body;
+        const { title, multiverseXYoloMode } = body;
 
         if (!id) {
             return NextResponse.json(
@@ -164,16 +200,28 @@ export async function PATCH(request: Request) {
             );
         }
 
-        if (!title) {
+        // Build update data object based on what fields are provided
+        const updateData: { title?: string; multiverseXYoloMode?: boolean } = {};
+
+        if (title !== undefined) {
+            updateData.title = title;
+        }
+
+        if (multiverseXYoloMode !== undefined) {
+            updateData.multiverseXYoloMode = multiverseXYoloMode;
+        }
+
+        // At least one field must be provided
+        if (Object.keys(updateData).length === 0) {
             return NextResponse.json(
-                { error: "Title is required" },
+                { error: "At least one field (title or multiverseXYoloMode) is required" },
                 { status: 400 }
             );
         }
 
         const updatedTopic = await prisma.topic.update({
             where: { id: parseInt(id) },
-            data: { title },
+            data: updateData,
         });
 
         return NextResponse.json(updatedTopic, { status: 200 });

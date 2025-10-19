@@ -21,26 +21,8 @@ export default function HomePage() {
     const { toast } = useToast();
     const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    const loadData = useCallback(async (silent: boolean = false) => {
+    const loadEvents = async () => {
         try {
-            if (!silent) {
-                setIsRefreshing(true);
-            }
-
-            // Load topics
-            const topicsResponse = await fetch("/api/topics");
-            if (topicsResponse.ok) {
-                const apiTopics = await topicsResponse.json();
-                const formattedTopics = apiTopics.map((topic: any) => ({
-                    id: topic.id.toString(),
-                    title: topic.title,
-                    prompt: topic.prompt,
-                    createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
-                }));
-                setTopics(formattedTopics);
-            }
-
-            // Load events (notifications)
             const eventsResponse = await fetch("/api/events");
             if (eventsResponse.ok) {
                 const apiEvents = await eventsResponse.json();
@@ -53,12 +35,78 @@ export default function HomePage() {
                     url: event.eventUrl,
                     createdAt: new Date(event.createdAt),
                     isRead: !event.unread, // unread: true means isRead: false
+                    fromYoloMode: event.fromYoloMode || false,
                 }));
                 setNotifications(formattedNotifications);
             }
         } catch (error) {
-            console.error("Error loading data from API:", error);
-            if (!silent) {
+            console.error("Error loading events from API:", error);
+        }
+    };
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                // Load topics
+                const topicsResponse = await fetch("/api/topics");
+                if (topicsResponse.ok) {
+                    const apiTopics = await topicsResponse.json();
+                    const formattedTopics = apiTopics.map((topic: any) => ({
+                        id: topic.id.toString(),
+                        title: topic.title,
+                        prompt: topic.prompt,
+                        createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
+                        multiverseXYoloMode: topic.multiverseXYoloMode || false,
+                    }));
+                    setTopics(formattedTopics);
+                }
+
+                // Load events (notifications)
+                await loadEvents();
+            } catch (error) {
+                console.error("Error loading data from API:", error);
+                toast({
+                    title: "Failed to load data",
+                    description: "Could not connect to the server",
+                    variant: "destructive",
+                });
+            }
+        };
+
+        loadData();
+
+        // Set up polling for events every 5 seconds
+        const eventsPollInterval = setInterval(() => {
+            loadEvents();
+        }, 5000);
+
+        // Cleanup interval on unmount
+        return () => {
+            clearInterval(eventsPollInterval);
+        };
+    }, [toast]);
+
+
+            // Load topics
+            const topicsResponse = await fetch("/api/topics");
+            if (topicsResponse.ok) {
+                const apiTopics = await topicsResponse.json();
+                const formattedTopics = apiTopics.map((topic: any) => ({
+                    id: topic.id.toString(),
+                    title: topic.title,
+                    prompt: topic.prompt,
+                    createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
+                    multiverseXYoloMode: topic.multiverseXYoloMode || false,
+                }));
+                setTopics(formattedTopics);
+            }
+
+                // Also reload events to capture any new events
+                await loadEvents();
+
+                // Don't auto-select the topic - let the user click the "Go to" button instead
+                // This allows them to see the completion message and choose when to proceed
+
                 toast({
                     title: "Failed to load data",
                     description: "Could not connect to the server",
@@ -109,6 +157,9 @@ export default function HomePage() {
 
     const handleTopicClick = async (topic: Topic) => {
         setSelectedTopic(topic);
+
+        // Refresh events to get the latest data for this topic
+        await loadEvents();
 
         try {
             // Mark all notifications for this topic as read via API
@@ -193,6 +244,40 @@ export default function HomePage() {
             console.error("Error renaming topic:", error);
             toast({
                 title: "Failed to rename topic",
+                description: "Could not update topic. Please try again.",
+                variant: "destructive",
+            });
+        }
+    };
+
+    const handleToggleYoloMode = async (topicId: string, enabled: boolean) => {
+        try {
+            const response = await fetch(`/api/topics?id=${topicId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ multiverseXYoloMode: enabled }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to toggle Yolo mode");
+            }
+
+            setTopics((prev) =>
+                prev.map((t) => (t.id === topicId ? { ...t, multiverseXYoloMode: enabled } : t))
+            );
+
+            toast({
+                title: enabled ? "Yolo mode enabled" : "Yolo mode disabled",
+                description: enabled
+                    ? "AI agent will now trade aggressively based on events"
+                    : "AI agent trading has been disabled",
+            });
+        } catch (error) {
+            console.error("Error toggling Yolo mode:", error);
+            toast({
+                title: "Failed to toggle Yolo mode",
                 description: "Could not update topic. Please try again.",
                 variant: "destructive",
             });
@@ -319,6 +404,37 @@ export default function HomePage() {
                     onNewChat={handleBack}
                     onDeleteTopic={handleDeleteTopic}
                     onRenameTopic={handleRenameTopic}
+                    onTo
+40
+ 
+                }));
+41
+ 
+                setNotifications(formattedNotifications);
+42
+ 
+            }
+43
+ 
+        } catch (error) {
+44
+ 
+            console.error("Error loading events from API:", error);
+45
+ 
+        }
+46
+ 
+    };
+47
+ 
+​
+48
+ 
+    useEffect(() => {
+49
+ 
+        const loadData = async () => {ggleYoloMode={handleToggleYoloMode}
                 />
             </SlidingSidebar>
 

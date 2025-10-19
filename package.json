@@ -12,7 +12,9 @@
     "db:studio": "npx prisma studio",
     "docker:rebuild": "docker compose down && docker compose up -d --build",
     "docker:restart": "docker compose restart",
-    "schema:update": "docker exec synk-app-1 npx prisma migrate dev && docker compose restart app"
+    "schema:update": "docker exec synk-app-1 npx prisma migrate dev && docker compose restart app",
+    "test:poll-rss": "tsx --test tests/poll-rss-agent.test.ts",
+    "test:poll-static": "tsx --test tests/static-site-agent.test.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.52",

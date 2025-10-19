@@ -28,6 +28,7 @@ import {
     Pencil,
     Trash2,
     Search,
+    Zap,
 } from "lucide-react";
 
 interface TopicsSidebarProps {
@@ -38,6 +39,7 @@ interface TopicsSidebarProps {
     onNewChat?: () => void;
     onDeleteTopic?: (topicId: string) => void;
     onRenameTopic?: (topicId: string, newTitle: string) => void;
+    onToggleYoloMode?: (topicId: string, enabled: boolean) => void;
 }
 
 export function TopicsSidebar({
@@ -48,11 +50,14 @@ export function TopicsSidebar({
     onNewChat,
     onDeleteTopic,
     onRenameTopic,
+    onToggleYoloMode,
 }: TopicsSidebarProps) {
     const [renameDialogOpen, setRenameDialogOpen] = useState(false);
     const [renamingTopic, setRenamingTopic] = useState<Topic | null>(null);
     const [renameValue, setRenameValue] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
+    const [yoloDialogOpen, setYoloDialogOpen] = useState(false);
+    const [yoloTopic, setYoloTopic] = useState<Topic | null>(null);
 
     const sortedTopics = [...topics]
         .filter((topic) =>
@@ -88,6 +93,26 @@ export function TopicsSidebar({
         setRenameDialogOpen(false);
         setRenamingTopic(null);
         setRenameValue("");
+    };
+
+    const handleYoloStart = (topic: Topic, e: React.MouseEvent) => {
+        e.stopPropagation();
+        setYoloTopic(topic);
+        setYoloDialogOpen(true);
+    };
+
+    const handleYoloConfirm = () => {
+        if (yoloTopic && onToggleYoloMode) {
+            const newYoloMode = !yoloTopic.multiverseXYoloMode;
+            onToggleYoloMode(yoloTopic.id, newYoloMode);
+        }
+        setYoloDialogOpen(false);
+        setYoloTopic(null);
+    };
+
+    const handleYoloCancel = () => {
+        setYoloDialogOpen(false);
+        setYoloTopic(null);
     };
 
     return (
@@ -175,6 +200,13 @@ export function TopicsSidebar({
                                             Rename
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
+                                            onClick={(e) => handleYoloStart(topic, e)}
+                                            className={topic.multiverseXYoloMode ? "text-yellow-600 dark:text-yellow-500" : ""}
+                                        >
+                                            <Zap className="w-4 h-4 mr-2" />
+                                            {topic.multiverseXYoloMode ? "Disable Yolo" : "Yolo"}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 if (
@@ -231,6 +263,36 @@ export function TopicsSidebar({
                             Cancel
                         </Button>
                         <Button onClick={handleRenameSubmit}>Save</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Yolo Mode Confirmation Dialog */}
+            <Dialog open={yoloDialogOpen} onOpenChange={setYoloDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2">
+                            <Zap className="w-5 h-5 text-yellow-600 dark:text-yellow-500" />
+                            {yoloTopic?.multiverseXYoloMode ? "Disable" : "Enable"} MultiverseX Yolo Mode
+                        </DialogTitle>
+                        <DialogDescription>
+                            {yoloTopic?.multiverseXYoloMode ? (
+                                "Are you sure you want to disable Yolo mode? The AI agent will stop trading based on events for this topic."
+                            ) : (
+                                "This will trigger an AI agent which will trade aggressively based on the events connected to this specific topic. Use with caution!"
+                            )}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={handleYoloCancel}>
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleYoloConfirm}
+                            className={yoloTopic?.multiverseXYoloMode ? "" : "bg-yellow-600 hover:bg-yellow-700 text-white"}
+                        >
+                            {yoloTopic?.multiverseXYoloMode ? "Disable" : "Enable"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

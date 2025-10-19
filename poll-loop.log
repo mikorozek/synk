@@ -1,0 +1,3496 @@
+[2025-10-19 08:36:59] [0;32mStarting poll loop...[0m
+[2025-10-19 08:36:59] RSS Endpoint: http://localhost:3000/api/poll-rss
+[2025-10-19 08:36:59] Static Sites Endpoint: http://localhost:3000/api/poll-static-sites
+[2025-10-19 08:36:59] Poll Interval: 30s
+[2025-10-19 08:36:59] Log File: poll-loop.log
+
+[2025-10-19 08:36:59] [1;33m>>> Iteration #1 <<<[0m
+[2025-10-19 08:36:59] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:36:59] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 08:36:59] Response: 
+
+[2025-10-19 08:36:59] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:36:59] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 08:36:59] Response: 
+
+[2025-10-19 08:36:59] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 06:37:35] [0;32mStarting poll loop...[0m
+[2025-10-19 06:37:35] RSS Endpoint: http://localhost:3000/api/poll-rss
+[2025-10-19 06:37:35] Static Sites Endpoint: http://localhost:3000/api/poll-static-sites
+[2025-10-19 06:37:35] Poll Interval: 30s
+[2025-10-19 06:37:35] Log File: poll-loop.log
+
+[2025-10-19 06:37:35] [1;33m>>> Iteration #1 <<<[0m
+[2025-10-19 06:37:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 06:37:35] [0;31m✗ RSS Feed Polling failed (HTTP poll-loop.sh: line 38: curl: command not found)[0m
+[2025-10-19 06:37:35] Response: 
+
+[2025-10-19 06:37:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 06:37:35] [0;31m✗ Static Site Polling failed (HTTP poll-loop.sh: line 38: curl: command not found)[0m
+[2025-10-19 06:37:35] Response: 
+
+[2025-10-19 06:37:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 06:37:45] [1;33mStopping poll loop...[0m
+[2025-10-19 06:38:17] [0;32mStarting poll loop (Docker version)...[0m
+[2025-10-19 06:38:17] RSS Endpoint: http://localhost:3000/api/poll-rss
+[2025-10-19 06:38:17] Static Sites Endpoint: http://localhost:3000/api/poll-static-sites
+[2025-10-19 06:38:17] Poll Interval: 30s
+[2025-10-19 06:38:17] Log File: poll-loop.log
+
+[2025-10-19 06:38:17] [1;33m>>> Iteration #1 <<<[0m
+[2025-10-19 06:38:17] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 06:38:19] [0;32m✓ RSS Feed Polling successful (HTTP 200, 1.73s)[0m
+[2025-10-19 06:38:19] Response:
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.02
+}
+
+[2025-10-19 06:38:19] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 06:38:19] [0;32m✓ Static Site Polling successful (HTTP 200, 0.19s)[0m
+[2025-10-19 06:38:19] Response:
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 06:38:19] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 06:38:49] [1;33m>>> Iteration #2 <<<[0m
+[2025-10-19 06:38:49] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 06:38:50] [0;32m✓ RSS Feed Polling successful (HTTP 200, 0.07s)[0m
+[2025-10-19 06:38:50] Response:
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 06:38:50] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 06:38:50] [0;32m✓ Static Site Polling successful (HTTP 200, 0.04s)[0m
+[2025-10-19 06:38:50] Response:
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 06:38:50] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 06:38:52] [1;33mStopping poll loop...[0m
+[2025-10-19 08:40:35] [0;32mStarting poll loop...[0m
+[2025-10-19 08:40:35] RSS Endpoint: http://localhost:3000/api/poll-rss
+[2025-10-19 08:40:35] Static Sites Endpoint: http://localhost:3000/api/poll-static-sites
+[2025-10-19 08:40:35] Poll Interval: 30s
+[2025-10-19 08:40:35] Log File: poll-loop.log
+
+[2025-10-19 08:40:35] [1;33m>>> Iteration #1 <<<[0m
+[2025-10-19 08:40:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:40:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:40:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:40:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:40:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:40:35] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:40:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:41:05] [1;33m>>> Iteration #2 <<<[0m
+[2025-10-19 08:41:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:41:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:41:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:41:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:41:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:41:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:41:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:41:35] [1;33m>>> Iteration #3 <<<[0m
+[2025-10-19 08:41:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:41:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:41:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:41:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:41:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:41:35] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 08:41:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:42:05] [1;33m>>> Iteration #4 <<<[0m
+[2025-10-19 08:42:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:42:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:42:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:42:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:42:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:42:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:42:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:42:35] [1;33m>>> Iteration #5 <<<[0m
+[2025-10-19 08:42:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:42:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:42:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:42:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:42:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:42:35] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:42:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:43:05] [1;33m>>> Iteration #6 <<<[0m
+[2025-10-19 08:43:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:43:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:43:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:43:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:43:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:43:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:43:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:43:35] [1;33m>>> Iteration #7 <<<[0m
+[2025-10-19 08:43:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:43:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:43:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.015}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.015
+}
+
+[2025-10-19 08:43:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:43:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:43:35] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:43:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:44:05] [1;33m>>> Iteration #8 <<<[0m
+[2025-10-19 08:44:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:44:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:44:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:44:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:44:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:44:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:44:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:44:35] [1;33m>>> Iteration #9 <<<[0m
+[2025-10-19 08:44:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:44:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:44:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:44:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:44:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:44:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:44:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:45:06] [1;33m>>> Iteration #10 <<<[0m
+[2025-10-19 08:45:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:45:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:45:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:45:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:45:06] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:45:06] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:45:06] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:45:36] [1;33m>>> Iteration #11 <<<[0m
+[2025-10-19 08:45:36] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:45:36] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:45:36] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:45:36] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:45:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:45:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 08:45:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:46:06] [1;33m>>> Iteration #12 <<<[0m
+[2025-10-19 08:46:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:46:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:46:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:46:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:46:06] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:46:06] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:46:06] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:46:36] [1;33m>>> Iteration #13 <<<[0m
+[2025-10-19 08:46:36] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:46:36] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:46:36] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:46:36] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:46:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:46:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:46:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:47:06] [1;33m>>> Iteration #14 <<<[0m
+[2025-10-19 08:47:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:47:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:47:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:47:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:47:06] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:47:06] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 08:47:06] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:47:36] [1;33m>>> Iteration #15 <<<[0m
+[2025-10-19 08:47:36] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:47:36] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:47:36] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:47:36] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:47:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:47:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 08:47:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:48:06] [1;33m>>> Iteration #16 <<<[0m
+[2025-10-19 08:48:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:48:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:48:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:48:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:48:06] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:48:06] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:48:06] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:48:36] [1;33m>>> Iteration #17 <<<[0m
+[2025-10-19 08:48:36] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:48:36] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:48:36] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.015}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.015
+}
+
+[2025-10-19 08:48:36] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:48:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:48:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:48:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:49:06] [1;33m>>> Iteration #18 <<<[0m
+[2025-10-19 08:49:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:49:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:49:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:49:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:49:06] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:49:06] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:49:06] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:49:36] [1;33m>>> Iteration #19 <<<[0m
+[2025-10-19 08:49:36] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:49:36] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:49:36] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:49:36] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:49:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:49:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:49:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:50:06] [1;33m>>> Iteration #20 <<<[0m
+[2025-10-19 08:50:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:50:07] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:50:07] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:50:07] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:50:07] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:50:07] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:50:07] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:50:37] [1;33m>>> Iteration #21 <<<[0m
+[2025-10-19 08:50:37] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:50:37] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:50:37] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:50:37] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:50:37] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:50:37] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:50:37] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:51:07] [1;33m>>> Iteration #22 <<<[0m
+[2025-10-19 08:51:07] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:51:07] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:51:07] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:51:07] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:51:07] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:51:07] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 08:51:07] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:51:37] [1;33m>>> Iteration #23 <<<[0m
+[2025-10-19 08:51:37] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:51:37] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:51:37] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.001}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.001
+}
+
+[2025-10-19 08:51:37] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:51:37] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:51:37] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 08:51:37] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:52:07] [1;33m>>> Iteration #24 <<<[0m
+[2025-10-19 08:52:07] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:52:07] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:52:07] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.001}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.001
+}
+
+[2025-10-19 08:52:07] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:52:07] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:52:07] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:52:07] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:52:37] [1;33m>>> Iteration #25 <<<[0m
+[2025-10-19 08:52:37] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:52:37] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 08:52:37] Response: 
+
+[2025-10-19 08:52:37] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:52:37] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 08:52:37] Response: 
+
+[2025-10-19 08:52:37] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:53:07] [1;33m>>> Iteration #26 <<<[0m
+[2025-10-19 08:53:07] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:53:09] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:53:09] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.017}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.017
+}
+
+[2025-10-19 08:53:09] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:53:09] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:53:09] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.275}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.275
+  }
+}
+
+[2025-10-19 08:53:09] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:53:39] [1;33m>>> Iteration #27 <<<[0m
+[2025-10-19 08:53:39] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:53:39] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:53:39] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:53:39] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:53:39] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:53:39] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.268}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.268
+  }
+}
+
+[2025-10-19 08:53:39] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:54:09] [1;33m>>> Iteration #28 <<<[0m
+[2025-10-19 08:54:09] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:54:10] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:54:10] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:54:10] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:54:10] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:54:10] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.273}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.273
+  }
+}
+
+[2025-10-19 08:54:10] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:54:40] [1;33m>>> Iteration #29 <<<[0m
+[2025-10-19 08:54:40] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:54:40] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:54:40] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.004}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.004
+}
+
+[2025-10-19 08:54:40] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:54:40] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:54:40] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.258}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.258
+  }
+}
+
+[2025-10-19 08:54:40] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:55:10] [1;33m>>> Iteration #30 <<<[0m
+[2025-10-19 08:55:10] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:55:10] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:55:10] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.004}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.004
+}
+
+[2025-10-19 08:55:10] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:55:11] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:55:11] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.271}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.271
+  }
+}
+
+[2025-10-19 08:55:11] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:55:41] [1;33m>>> Iteration #31 <<<[0m
+[2025-10-19 08:55:41] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:55:41] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:55:41] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.005}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.005
+}
+
+[2025-10-19 08:55:41] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:55:41] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:55:41] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.27}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.27
+  }
+}
+
+[2025-10-19 08:55:41] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:56:11] [1;33m>>> Iteration #32 <<<[0m
+[2025-10-19 08:56:11] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:56:11] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:56:11] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:56:11] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:56:11] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:56:11] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.318}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.318
+  }
+}
+
+[2025-10-19 08:56:11] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:56:42] [1;33m>>> Iteration #33 <<<[0m
+[2025-10-19 08:56:42] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:56:42] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:56:42] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.004}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.004
+}
+
+[2025-10-19 08:56:42] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:56:42] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:56:42] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.277}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.277
+  }
+}
+
+[2025-10-19 08:56:42] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:57:12] [1;33m>>> Iteration #34 <<<[0m
+[2025-10-19 08:57:12] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:57:12] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:57:12] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:57:12] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:57:12] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:57:12] Response: {"success":true,"result":{"polled":7,"successful":0,"failed":7,"changesDetected":0,"eventsCreated":0,"errors":[{"sourceId":1,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":2,"sourceUrl":"https://www.soofte.com/guides","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":3,"sourceUrl":"https://www.soofte.com/faq","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":4,"sourceUrl":"https://www.soofte.com/?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":5,"sourceUrl":"https://www.soofte.com/security","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":6,"sourceUrl":"https://www.soofte.com/privacy?utm_source=openai","error":"FIRECRAWL_API_KEY environment variable is not set"},{"sourceId":7,"sourceUrl":"https://www.soofte.com/","error":"FIRECRAWL_API_KEY environment variable is not set"}],"duration":0.278}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 0,
+    "failed": 7,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [
+      {
+        "sourceId": 1,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 2,
+        "sourceUrl": "https://www.soofte.com/guides",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 3,
+        "sourceUrl": "https://www.soofte.com/faq",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 4,
+        "sourceUrl": "https://www.soofte.com/?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 5,
+        "sourceUrl": "https://www.soofte.com/security",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 6,
+        "sourceUrl": "https://www.soofte.com/privacy?utm_source=openai",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      },
+      {
+        "sourceId": 7,
+        "sourceUrl": "https://www.soofte.com/",
+        "error": "FIRECRAWL_API_KEY environment variable is not set"
+      }
+    ],
+    "duration": 0.278
+  }
+}
+
+[2025-10-19 08:57:12] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:57:42] [1;33m>>> Iteration #35 <<<[0m
+[2025-10-19 08:57:42] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:57:42] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 08:57:42] Response: 
+
+[2025-10-19 08:57:42] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:57:42] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 08:57:42] Response: 
+
+[2025-10-19 08:57:42] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:58:12] [1;33m>>> Iteration #36 <<<[0m
+[2025-10-19 08:58:12] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:58:14] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:58:14] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.018}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.018
+}
+
+[2025-10-19 08:58:14] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:58:45] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:58:45] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":30.446}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 30.446
+  }
+}
+
+[2025-10-19 08:58:45] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:59:15] [1;33m>>> Iteration #37 <<<[0m
+[2025-10-19 08:59:15] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:59:15] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:59:15] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 08:59:15] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:59:15] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:59:15] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 08:59:15] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 08:59:45] [1;33m>>> Iteration #38 <<<[0m
+[2025-10-19 08:59:45] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 08:59:45] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 08:59:45] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 08:59:45] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 08:59:45] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 08:59:45] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 08:59:45] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:00:15] [1;33m>>> Iteration #39 <<<[0m
+[2025-10-19 09:00:15] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:00:15] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:00:15] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:00:15] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:00:15] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:00:15] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:00:15] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:00:45] [1;33m>>> Iteration #40 <<<[0m
+[2025-10-19 09:00:45] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:00:45] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:00:45] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:00:45] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:00:45] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:00:45] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:00:45] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:01:15] [1;33m>>> Iteration #41 <<<[0m
+[2025-10-19 09:01:15] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:01:15] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:01:15] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.004}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.004
+}
+
+[2025-10-19 09:01:15] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:01:15] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:01:15] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:01:15] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:01:45] [1;33m>>> Iteration #42 <<<[0m
+[2025-10-19 09:01:45] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:01:45] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:01:45] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:01:45] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:01:45] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:01:45] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:01:45] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:02:15] [1;33m>>> Iteration #43 <<<[0m
+[2025-10-19 09:02:15] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:02:15] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:02:15] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.001}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.001
+}
+
+[2025-10-19 09:02:15] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:02:15] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:02:15] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:02:15] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:02:45] [1;33m>>> Iteration #44 <<<[0m
+[2025-10-19 09:02:46] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:02:46] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:02:46] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:02:46] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:02:46] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:02:46] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 09:02:46] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:03:16] [1;33m>>> Iteration #45 <<<[0m
+[2025-10-19 09:03:16] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:03:16] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:03:16] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.016}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.016
+}
+
+[2025-10-19 09:03:16] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:03:16] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:03:16] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:03:16] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:03:46] [1;33m>>> Iteration #46 <<<[0m
+[2025-10-19 09:03:46] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:03:46] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:03:46] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:03:46] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:03:46] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:03:46] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:03:46] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:04:16] [1;33m>>> Iteration #47 <<<[0m
+[2025-10-19 09:04:16] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:04:16] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 09:04:16] Response: 
+
+[2025-10-19 09:04:16] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:04:16] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 09:04:16] Response: 
+
+[2025-10-19 09:04:16] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:04:46] [1;33m>>> Iteration #48 <<<[0m
+[2025-10-19 09:04:46] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:04:47] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 09:04:47] Response: 
+
+[2025-10-19 09:04:47] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:04:47] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 09:04:47] Response: 
+
+[2025-10-19 09:04:47] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:05:17] [1;33m>>> Iteration #49 <<<[0m
+[2025-10-19 09:05:17] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:05:19] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:05:19] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.019}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.019
+}
+
+[2025-10-19 09:05:19] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:05:31] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:05:31] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":12.079}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 12.079
+  }
+}
+
+[2025-10-19 09:05:31] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:06:01] [1;33m>>> Iteration #50 <<<[0m
+[2025-10-19 09:06:01] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:06:01] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:06:01] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:06:01] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:06:01] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:06:01] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:06:01] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:06:31] [1;33m>>> Iteration #51 <<<[0m
+[2025-10-19 09:06:31] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:06:31] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:06:31] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:06:31] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:06:38] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:06:38] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":6.288}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 6.288
+  }
+}
+
+[2025-10-19 09:06:38] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:07:08] [1;33m>>> Iteration #52 <<<[0m
+[2025-10-19 09:07:08] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:07:08] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:07:08] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:07:08] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:07:08] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:07:08] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:07:08] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:07:38] [1;33m>>> Iteration #53 <<<[0m
+[2025-10-19 09:07:38] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:07:38] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:07:38] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:07:38] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:07:50] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:07:50] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":11.776}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 11.776
+  }
+}
+
+[2025-10-19 09:07:50] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:08:20] [1;33m>>> Iteration #54 <<<[0m
+[2025-10-19 09:08:20] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:08:20] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:08:20] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:08:20] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:08:20] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:08:20] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:08:20] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:08:50] [1;33m>>> Iteration #55 <<<[0m
+[2025-10-19 09:08:50] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:08:50] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:08:50] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:08:50] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:08:55] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:08:55] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.614}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.614
+  }
+}
+
+[2025-10-19 09:08:55] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:09:25] [1;33m>>> Iteration #56 <<<[0m
+[2025-10-19 09:09:25] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:09:26] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:09:26] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:09:26] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:09:26] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:09:26] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:09:26] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:09:56] [1;33m>>> Iteration #57 <<<[0m
+[2025-10-19 09:09:56] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:09:56] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:09:56] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:09:56] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:10:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:10:05] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":9.752}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 9.752
+  }
+}
+
+[2025-10-19 09:10:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:10:35] [1;33m>>> Iteration #58 <<<[0m
+[2025-10-19 09:10:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:10:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:10:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.013}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.013
+}
+
+[2025-10-19 09:10:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:10:36] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:10:36] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:10:36] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:11:06] [1;33m>>> Iteration #59 <<<[0m
+[2025-10-19 09:11:06] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:11:06] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:11:06] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:11:06] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:11:15] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:11:15] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":9.431}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 9.431
+  }
+}
+
+[2025-10-19 09:11:15] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:11:45] [1;33m>>> Iteration #60 <<<[0m
+[2025-10-19 09:11:45] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:11:45] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:11:45] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:11:45] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:11:45] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:11:45] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:11:45] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:12:15] [1;33m>>> Iteration #61 <<<[0m
+[2025-10-19 09:12:15] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:12:15] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:12:15] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:12:15] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:12:25] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:12:25] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":9.297}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 9.297
+  }
+}
+
+[2025-10-19 09:12:25] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:12:55] [1;33m>>> Iteration #62 <<<[0m
+[2025-10-19 09:12:55] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:12:55] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:12:55] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:12:55] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:12:55] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:12:55] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:12:55] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:13:25] [1;33m>>> Iteration #63 <<<[0m
+[2025-10-19 09:13:25] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:13:25] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:13:25] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:13:25] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:13:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:13:35] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":10.282}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 10.282
+  }
+}
+
+[2025-10-19 09:13:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:14:05] [1;33m>>> Iteration #64 <<<[0m
+[2025-10-19 09:14:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:14:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:14:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:14:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:14:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:14:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:14:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:14:35] [1;33m>>> Iteration #65 <<<[0m
+[2025-10-19 09:14:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:14:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:14:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:14:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:14:41] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:14:41] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":6.168}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 6.168
+  }
+}
+
+[2025-10-19 09:14:41] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:15:11] [1;33m>>> Iteration #66 <<<[0m
+[2025-10-19 09:15:11] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:15:11] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:15:11] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:15:11] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:15:11] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:15:11] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:15:11] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:15:41] [1;33m>>> Iteration #67 <<<[0m
+[2025-10-19 09:15:41] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:15:42] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:15:42] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.015}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.015
+}
+
+[2025-10-19 09:15:42] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:15:47] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:15:47] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.634}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.634
+  }
+}
+
+[2025-10-19 09:15:47] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:16:17] [1;33m>>> Iteration #68 <<<[0m
+[2025-10-19 09:16:17] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:16:17] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:16:17] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:16:17] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:16:17] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:16:17] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:16:17] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:16:47] [1;33m>>> Iteration #69 <<<[0m
+[2025-10-19 09:16:47] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:16:47] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:16:47] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:16:47] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:16:52] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:16:52] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":4.939}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 4.939
+  }
+}
+
+[2025-10-19 09:16:52] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:17:22] [1;33m>>> Iteration #70 <<<[0m
+[2025-10-19 09:17:22] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:17:22] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:17:22] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:17:22] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:17:22] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:17:22] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.003}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.003
+  }
+}
+
+[2025-10-19 09:17:22] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:17:52] [1;33m>>> Iteration #71 <<<[0m
+[2025-10-19 09:17:52] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:17:53] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:17:53] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:17:53] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:17:59] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:17:59] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.257}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.257
+  }
+}
+
+[2025-10-19 09:17:59] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:18:29] [1;33m>>> Iteration #72 <<<[0m
+[2025-10-19 09:18:29] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:18:29] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:18:29] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:18:29] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:18:29] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:18:29] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:18:29] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:18:59] [1;33m>>> Iteration #73 <<<[0m
+[2025-10-19 09:18:59] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:18:59] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:18:59] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:18:59] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:19:04] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:19:04] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.069}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.069
+  }
+}
+
+[2025-10-19 09:19:04] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:19:34] [1;33m>>> Iteration #74 <<<[0m
+[2025-10-19 09:19:34] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:19:34] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:19:34] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.003}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.003
+}
+
+[2025-10-19 09:19:34] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:19:34] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:19:34] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:19:34] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:20:04] [1;33m>>> Iteration #75 <<<[0m
+[2025-10-19 09:20:04] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:20:04] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:20:04] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:20:04] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:20:10] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:20:10] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.861}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.861
+  }
+}
+
+[2025-10-19 09:20:10] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:20:18] [1;33mStopping poll loop...[0m
+[2025-10-19 09:26:22] [0;32mStarting poll loop...[0m
+[2025-10-19 09:26:22] RSS Endpoint: http://localhost:3000/api/poll-rss
+[2025-10-19 09:26:22] Static Sites Endpoint: http://localhost:3000/api/poll-static-sites
+[2025-10-19 09:26:22] Poll Interval: 30s
+[2025-10-19 09:26:22] Log File: poll-loop.log
+
+[2025-10-19 09:26:22] [1;33m>>> Iteration #1 <<<[0m
+[2025-10-19 09:26:22] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:26:23] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:26:23] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.01}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.01
+}
+
+[2025-10-19 09:26:23] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:26:28] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:26:28] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.468}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.468
+  }
+}
+
+[2025-10-19 09:26:28] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:26:58] [1;33m>>> Iteration #2 <<<[0m
+[2025-10-19 09:26:58] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:26:58] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:26:58] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:26:58] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:26:58] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:26:58] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:26:58] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:27:28] [1;33m>>> Iteration #3 <<<[0m
+[2025-10-19 09:27:28] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:27:28] [0;31m✗ RSS Feed Polling failed (HTTP 000)[0m
+[2025-10-19 09:27:28] Response: 
+
+[2025-10-19 09:27:28] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:27:28] [0;31m✗ Static Site Polling failed (HTTP 000)[0m
+[2025-10-19 09:27:28] Response: 
+
+[2025-10-19 09:27:28] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:27:59] [1;33m>>> Iteration #4 <<<[0m
+[2025-10-19 09:27:59] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:28:00] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:28:00] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.015}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.015
+}
+
+[2025-10-19 09:28:00] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:28:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:28:05] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":4.596}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 4.596
+  }
+}
+
+[2025-10-19 09:28:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:28:35] [1;33m>>> Iteration #5 <<<[0m
+[2025-10-19 09:28:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:28:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:28:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:28:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:28:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:28:35] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:28:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:29:05] [1;33m>>> Iteration #6 <<<[0m
+[2025-10-19 09:29:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:29:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:29:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:29:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:29:10] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:29:10] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":5.05}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 5.05
+  }
+}
+
+[2025-10-19 09:29:10] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:29:40] [1;33m>>> Iteration #7 <<<[0m
+[2025-10-19 09:29:40] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:29:40] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:29:40] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:29:40] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:29:40] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:29:40] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:29:40] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:30:10] [1;33m>>> Iteration #8 <<<[0m
+[2025-10-19 09:30:10] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:30:10] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:30:10] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:30:10] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:30:28] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:30:28] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":17.654}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 17.654
+  }
+}
+
+[2025-10-19 09:30:28] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:30:58] [1;33m>>> Iteration #9 <<<[0m
+[2025-10-19 09:30:58] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:30:58] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:30:58] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:30:58] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:30:58] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:30:58] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:30:58] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:31:28] [1;33m>>> Iteration #10 <<<[0m
+[2025-10-19 09:31:28] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:31:28] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:31:28] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:31:28] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:31:35] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:31:35] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":6.783}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 6.783
+  }
+}
+
+[2025-10-19 09:31:35] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:32:05] [1;33m>>> Iteration #11 <<<[0m
+[2025-10-19 09:32:05] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:32:05] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:32:05] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:32:05] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:32:05] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:32:05] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:32:05] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:32:35] [1;33m>>> Iteration #12 <<<[0m
+[2025-10-19 09:32:35] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:32:35] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:32:35] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:32:35] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:32:55] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:32:55] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":19.386}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 19.386
+  }
+}
+
+[2025-10-19 09:32:55] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:33:25] [1;33m>>> Iteration #13 <<<[0m
+[2025-10-19 09:33:25] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:33:25] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:33:25] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.007}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.007
+}
+
+[2025-10-19 09:33:25] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:33:25] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:33:25] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:33:25] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:33:55] [1;33m>>> Iteration #14 <<<[0m
+[2025-10-19 09:33:55] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:33:55] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:33:55] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:33:55] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:34:02] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:34:02] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":7.05}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 7.05
+  }
+}
+
+[2025-10-19 09:34:02] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:34:32] [1;33m>>> Iteration #15 <<<[0m
+[2025-10-19 09:34:32] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:34:32] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:34:32] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:34:32] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:34:32] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:34:32] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:34:32] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:35:02] [1;33m>>> Iteration #16 <<<[0m
+[2025-10-19 09:35:02] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:35:04] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:35:04] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.017}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.017
+}
+
+[2025-10-19 09:35:04] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:35:22] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:35:22] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":17.919}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 17.919
+  }
+}
+
+[2025-10-19 09:35:22] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:35:52] [1;33m>>> Iteration #17 <<<[0m
+[2025-10-19 09:35:52] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:35:52] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:35:52] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:35:52] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:35:52] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:35:52] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:35:52] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:36:22] [1;33m>>> Iteration #18 <<<[0m
+[2025-10-19 09:36:22] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:36:22] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:36:22] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:36:22] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:36:31] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:36:31] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":8.585}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 8.585
+  }
+}
+
+[2025-10-19 09:36:31] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:37:01] [1;33m>>> Iteration #19 <<<[0m
+[2025-10-19 09:37:01] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:37:01] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:37:01] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:37:01] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:37:01] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:37:01] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.001}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.001
+  }
+}
+
+[2025-10-19 09:37:01] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:37:31] [1;33m>>> Iteration #20 <<<[0m
+[2025-10-19 09:37:31] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:37:31] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:37:31] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:37:31] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:37:38] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:37:38] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":7.3}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 7.3
+  }
+}
+
+[2025-10-19 09:37:38] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:38:08] [1;33m>>> Iteration #21 <<<[0m
+[2025-10-19 09:38:08] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:38:08] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:38:08] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:38:08] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:38:08] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:38:08] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:38:08] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:38:38] [1;33m>>> Iteration #22 <<<[0m
+[2025-10-19 09:38:38] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:38:38] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:38:38] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:38:38] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:38:49] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:38:49] Response: {"success":true,"result":{"polled":7,"successful":7,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":10.697}}
+{
+  "success": true,
+  "result": {
+    "polled": 7,
+    "successful": 7,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 10.697
+  }
+}
+
+[2025-10-19 09:38:49] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:39:19] [1;33m>>> Iteration #23 <<<[0m
+[2025-10-19 09:39:19] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:39:19] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:39:19] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:39:19] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:39:19] [0;32m✓ Static Site Polling successful (HTTP 200)[0m
+[2025-10-19 09:39:19] Response: {"success":true,"result":{"polled":0,"successful":0,"failed":0,"changesDetected":0,"eventsCreated":0,"errors":[],"duration":0.002}}
+{
+  "success": true,
+  "result": {
+    "polled": 0,
+    "successful": 0,
+    "failed": 0,
+    "changesDetected": 0,
+    "eventsCreated": 0,
+    "errors": [],
+    "duration": 0.002
+  }
+}
+
+[2025-10-19 09:39:19] [0;34mWaiting 30s before next poll...[0m
+---
+
+[2025-10-19 09:39:49] [1;33m>>> Iteration #24 <<<[0m
+[2025-10-19 09:39:49] [0;34m=== Polling RSS Feed Polling ===[0m
+[2025-10-19 09:39:49] [0;32m✓ RSS Feed Polling successful (HTTP 200)[0m
+[2025-10-19 09:39:49] Response: {"polled":0,"successful":0,"failed":0,"newEvents":0,"errors":[],"duration":0.002}
+{
+  "polled": 0,
+  "successful": 0,
+  "failed": 0,
+  "newEvents": 0,
+  "errors": [],
+  "duration": 0.002
+}
+
+[2025-10-19 09:39:49] [0;34m=== Polling Static Site Polling ===[0m
+[2025-10-19 09:40:42] [1;33mStopping poll loop...[0m
