@@ -27,6 +27,7 @@ import {
     MoreHorizontal,
     Pencil,
     Trash2,
+    Search,
 } from "lucide-react";
 
 interface TopicsSidebarProps {
@@ -51,15 +52,20 @@ export function TopicsSidebar({
     const [renameDialogOpen, setRenameDialogOpen] = useState(false);
     const [renamingTopic, setRenamingTopic] = useState<Topic | null>(null);
     const [renameValue, setRenameValue] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const sortedTopics = [...topics].sort((a, b) => {
-        const timeA = a.createdAt?.getTime() ?? 0;
-        const timeB = b.createdAt?.getTime() ?? 0;
-        return timeB - timeA;
-    });
+    const sortedTopics = [...topics]
+        .filter((topic) =>
+            topic.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .sort((a, b) => {
+            const timeA = a.createdAt?.getTime() ?? 0;
+            const timeB = b.createdAt?.getTime() ?? 0;
+            return timeB - timeA;
+        });
 
-    const hasUnread = (topicId: string) => {
-        return notifications.some((n) => n.topicId === topicId && !n.isRead);
+    const getUnreadCount = (topicId: string) => {
+        return notifications.filter((n) => n.topicId === topicId && !n.isRead).length;
     };
 
     const handleRenameStart = (topic: Topic, e: React.MouseEvent) => {
@@ -87,7 +93,7 @@ export function TopicsSidebar({
     return (
         <div className="flex flex-col h-full">
             {/* New Chat Button */}
-            <div className="p-3 border-b border-border">
+            <div className="p-3 border-b border-border space-y-2">
                 <Button
                     onClick={onNewChat}
                     className="w-full justify-start gap-3 h-11 px-3 bg-background hover:bg-muted"
@@ -96,6 +102,18 @@ export function TopicsSidebar({
                     <MessageSquarePlus className="w-4 h-4 shrink-0" />
                     <span className="font-medium">New Topic</span>
                 </Button>
+
+                {/* Search Filter */}
+                <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                        type="text"
+                        placeholder="Search topics..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="pl-9 h-9"
+                    />
+                </div>
             </div>
 
             {/* Topics List */}
@@ -126,7 +144,7 @@ export function TopicsSidebar({
                                             <span className="text-sm font-medium truncate flex-1 min-w-0">
                                                 {topic.title}
                                             </span>
-                                            {hasUnread(topic.id) && (
+                                            {getUnreadCount(topic.id) > 0 && (
                                                 <div className="w-2 h-2 bg-primary rounded-full shrink-0 mt-1.5" />
                                             )}
                                         </div>

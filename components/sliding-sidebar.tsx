@@ -4,7 +4,8 @@ import type React from "react";
 
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { PanelLeft, PanelRight } from "lucide-react";
+import { PanelLeft, PanelRight, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 interface SlidingSidebarProps {
   side: "left" | "right";
@@ -15,6 +16,12 @@ interface SlidingSidebarProps {
 
 export function SlidingSidebar({ side, children, icon, onToggle }: SlidingSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     onToggle?.(isOpen);
@@ -22,21 +29,40 @@ export function SlidingSidebar({ side, children, icon, onToggle }: SlidingSideba
 
   return (
     <>
-      {/* Fixed Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
+      {/* Fixed Toggle Buttons */}
+      <div
         className={cn(
-          "fixed top-3 p-2.5 hover:bg-muted rounded-lg transition-colors z-40 bg-card border border-border",
+          "fixed top-3 flex gap-2 z-40",
           side === "left" ? "left-3" : "right-3"
         )}
-        aria-label={`Toggle ${side} sidebar`}
       >
-        {isOpen ? (
-          side === "left" ? <PanelLeft className="w-5 h-5" /> : <PanelRight className="w-5 h-5" />
-        ) : (
-          icon
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2.5 hover:bg-muted rounded-lg transition-colors bg-card border border-border"
+          aria-label={`Toggle ${side} sidebar`}
+        >
+          {isOpen ? (
+            side === "left" ? <PanelLeft className="w-5 h-5" /> : <PanelRight className="w-5 h-5" />
+          ) : (
+            icon
+          )}
+        </button>
+
+        {side === "left" && (
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-2.5 hover:bg-muted rounded-lg transition-colors bg-card border border-border"
+            aria-label="Toggle theme"
+            disabled={!mounted}
+          >
+            {mounted && theme === "dark" ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </button>
         )}
-      </button>
+      </div>
 
       {/* Sidebar Panel */}
       <div
