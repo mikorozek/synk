@@ -41,6 +41,12 @@ export function TopicInput({ onCreateTopic }: TopicInputProps) {
             placeholder="What would you like to track? Describe the news or information you want to follow..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
             className="min-h-[120px] text-base resize-none bg-card pr-12"
             autoFocus
           />
