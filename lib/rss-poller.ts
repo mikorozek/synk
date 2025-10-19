@@ -109,10 +109,18 @@ async function processSingleSource(source: any): Promise<ProcessedSource> {
     // Check if this is the first poll (never polled before)
     const isFirstPoll = !source.lastItemGuid;
 
-    // Process items in reverse chronological order (newest first)
+    // Sort items by publication date (newest first)
+    // RSS feeds don't always provide items in chronological order (e.g., HN sorts by score)
+    const sortedItems = [...feed.items].sort((a, b) => {
+      const dateA = new Date(a.pubDate || a.isoDate || a.published || 0);
+      const dateB = new Date(b.pubDate || b.isoDate || b.published || 0);
+      return dateB.getTime() - dateA.getTime(); // Descending order (newest first)
+    });
+
+    // Process items to find new ones
     const newItems: any[] = [];
 
-    for (const item of feed.items) {
+    for (const item of sortedItems) {
       // Use GUID or link as identifier
       const itemGuid = item.guid || item.link || '';
 
@@ -126,35 +134,60 @@ async function processSingleSource(source: any): Promise<ProcessedSource> {
 
     // Create events for new items (skip on first poll to avoid old items)
     let createdCount = 0;
-    if (!isFirstPoll) {
-      for (const item of newItems) {
-        try {
-          // Parse publication date from RSS item
-          const publishedAt = item.pubDate || item.isoDate || item.published;
-          const publishedDate = publishedAt ? new Date(publishedAt) : null;
+    if (!isFirstPoll && newItems.length > 0) {
+      // Prepare event data for batch insert
+      const eventsToCreate = newItems.map(item => {
+        const publishedAt = item.pubDate || item.isoDate || item.published;
+        const publishedDate = publishedAt ? new Date(publishedAt) : null;
 
-          await prisma.event.create({
-            data: {
-              title: item.title || 'Untitled',
-              summary: item.contentSnippet || item.content || item.description || null,
-              eventUrl: item.link || null,
-              topicId: source.topicId,
-              publishedAt: publishedDate,
-              unread: true
-            }
-          });
-          createdCount++;
-        } catch (error) {
-          console.error(`Failed to create event for item: ${item.title}`, error);
-          // Continue processing other items
+        return {
+          title: item.title || 'Untitled',
+          summary: item.contentSnippet || item.content || item.description || null,
+          eventUrl: item.link || null,
+          topicId: source.topicId,
+          publishedAt: publishedDate,
+          unread: true
+        };
+      });
+
+      try {
+        // Batch insert all events at once for better performance
+        const result = await prisma.event.createMany({
+          data: eventsToCreate,
+          skipDuplicates: true // Skip if eventUrl already exists (if unique constraint added)
+        });
+        createdCount = result.count;
+      } catch (error) {
+        console.error(`Failed to create events for source ${source.id}:`, error);
+        // Fall back to individual inserts if batch fails
+        for (const item of newItems) {
+          try {
+            const publishedAt = item.pubDate || item.isoDate || item.published;
+            const publishedDate = publishedAt ? new Date(publishedAt) : null;
+
+            await prisma.event.create({
+              data: {
+                title: item.title || 'Untitled',
+                summary: item.contentSnippet || item.content || item.description || null,
+                eventUrl: item.link || null,
+                topicId: source.topicId,
+                publishedAt: publishedDate,
+                unread: true
+              }
+            });
+            createdCount++;
+          } catch (error) {
+            console.error(`Failed to create event for item: ${item.title}`, error);
+            // Continue processing other items
+          }
         }
       }
-    } else {
+    } else if (isFirstPoll) {
       console.log(`[RSS Poller] First poll for source ${source.id} - skipping ${newItems.length} existing items`);
     }
 
-    // Update source metadata
-    const newestItemGuid = feed.items[0]?.guid || feed.items[0]?.link || '';
+    // Update source metadata with the newest item's GUID
+    const newestItemGuid = sortedItems[0]?.guid || sortedItems[0]?.link || '';
     await prisma.source.update({
       where: { id: source.id },
       data: {
