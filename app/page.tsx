@@ -45,7 +45,7 @@ export default function HomePage() {
                         source: "Event Monitor",
                         url: event.eventUrl,
                         createdAt: new Date(event.createdAt),
-                        isRead: false,
+                        isRead: !event.unread, // unread: true means isRead: false
                     }));
                     setNotifications(formattedNotifications);
                 }
@@ -108,13 +108,35 @@ export default function HomePage() {
         }
     };
 
-    const handleTopicClick = (topic: Topic) => {
+    const handleTopicClick = async (topic: Topic) => {
         setSelectedTopic(topic);
 
-        // Mark all notifications for this topic as read
-        setNotifications((prev) =>
-            prev.map((n) => (n.topicId === topic.id ? { ...n, isRead: true } : n))
-        );
+        try {
+            // Mark all notifications for this topic as read via API
+            const response = await fetch('/api/events/mark-all-read', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ topicId: topic.id }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to mark all events as read');
+            }
+
+            // Update local state
+            setNotifications((prev) =>
+                prev.map((n) => (n.topicId === topic.id ? { ...n, isRead: true } : n))
+            );
+        } catch (error) {
+            console.error('Error marking all events as read:', error);
+            toast({
+                title: 'Failed to mark events as read',
+                description: 'Could not update all events. Please try again.',
+                variant: 'destructive',
+            });
+        }
     };
 
 
@@ -178,10 +200,94 @@ export default function HomePage() {
         }
     };
 
-    const handleMarkAsRead = (notificationId: string) => {
-        setNotifications((prev) =>
-            prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n))
-        );
+    const handleMarkAsRead = async (notificationId: string) => {
+        try {
+            // Only mark as read if it's currently unread
+            const notification = notifications.find(n => n.id === notificationId);
+            if (notification?.isRead) {
+                return; // Already read, do nothing
+            }
+
+            const response = await fetch(`/api/events/${notificationId}/mark-unread`, {
+                method: "PATCH",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to mark as read");
+            }
+
+            const updatedEvent = await response.json();
+
+            // Update local state
+            setNotifications((prev) =>
+                prev.map((n) =>
+                    n.id === notificationId ? { ...n, isRead: !updatedEvent.unread } : n
+                )
+            );
+        } catch (error) {
+            console.error("Error marking as read:", error);
+            // Silently fail for card clicks - user can use dropdown if needed
+        }
+    };
+
+    const handleToggleReadStatus = async (notificationId: string) => {
+        try {
+            const response = await fetch(`/api/events/${notificationId}/mark-unread`, {
+                method: "PATCH",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to toggle read status");
+            }
+
+            const updatedEvent = await response.json();
+
+            // Update local state
+            setNotifications((prev) =>
+                prev.map((n) =>
+                    n.id === notificationId ? { ...n, isRead: !updatedEvent.unread } : n
+                )
+            );
+
+            toast({
+                title: updatedEvent.unread ? "Marked as unread" : "Marked as read",
+                description: "Event status updated successfully",
+            });
+        } catch (error) {
+            console.error("Error toggling read status:", error);
+            toast({
+                title: "Failed to update status",
+                description: "Could not update event. Please try again.",
+                variant: "destructive",
+            });
+        }
+    };
+
+    const handleDeleteEvent = async (notificationId: string) => {
+        try {
+            const response = await fetch(`/api/events/${notificationId}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete event");
+            }
+
+            // Remove from local state
+            setNotifications((prev) => prev.filter((n) => n.id !== notificationId));
+
+            toast({
+                title: "Event deleted",
+                description: "Event has been removed successfully",
+            });
+        } catch (error) {
+            console.error("Error deleting event:", error);
+            toast({
+                title: "Failed to delete event",
+                description: "Could not delete event. Please try again.",
+                variant: "destructive",
+            });
+        }
     };
 
     const handleBack = () => {
@@ -224,6 +330,8 @@ export default function HomePage() {
                         notifications={notifications}
                         onBack={handleBack}
                         onMarkAsRead={handleMarkAsRead}
+                        onToggleReadStatus={handleToggleReadStatus}
+                        onDeleteEvent={handleDeleteEvent}
                     />
                 ) : (
                     <TopicInput onCreateTopic={handleCreateTopic} />

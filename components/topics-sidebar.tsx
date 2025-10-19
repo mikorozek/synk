@@ -58,8 +58,8 @@ export function TopicsSidebar({
         return timeB - timeA;
     });
 
-    const hasUnread = (topicId: string) => {
-        return notifications.some((n) => n.topicId === topicId && !n.isRead);
+    const getUnreadCount = (topicId: string) => {
+        return notifications.filter((n) => n.topicId === topicId && !n.isRead).length;
     };
 
     const handleRenameStart = (topic: Topic, e: React.MouseEvent) => {
@@ -126,7 +126,7 @@ export function TopicsSidebar({
                                             <span className="text-sm font-medium truncate flex-1 min-w-0">
                                                 {topic.title}
                                             </span>
-                                            {hasUnread(topic.id) && (
+                                            {getUnreadCount(topic.id) > 0 && (
                                                 <div className="w-2 h-2 bg-primary rounded-full shrink-0 mt-1.5" />
                                             )}
                                         </div>

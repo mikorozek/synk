@@ -10,8 +10,14 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, MoreHorizontal, Check, X, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TopicBoardProps {
@@ -19,6 +25,8 @@ interface TopicBoardProps {
   notifications: Notification[];
   onBack: () => void;
   onMarkAsRead: (notificationId: string) => void;
+  onToggleReadStatus: (notificationId: string) => void;
+  onDeleteEvent: (notificationId: string) => void;
 }
 
 export function TopicBoard({
@@ -26,6 +34,8 @@ export function TopicBoard({
   notifications,
   onBack,
   onMarkAsRead,
+  onToggleReadStatus,
+  onDeleteEvent,
 }: TopicBoardProps) {
   const topicNotifications = notifications
     .filter((n) => n.topicId === topic.id)
@@ -71,7 +81,7 @@ export function TopicBoard({
               <Card
                 key={notification.id}
                 className={cn(
-                  "transition-all hover:shadow-md cursor-pointer",
+                  "transition-all hover:shadow-md cursor-pointer group",
                   !notification.isRead && "border-primary/50 bg-accent/30"
                 )}
                 onClick={() => onMarkAsRead(notification.id)}
@@ -97,17 +107,66 @@ export function TopicBoard({
                         </span>
                       </CardDescription>
                     </div>
-                    {notification.url && (
-                      <Button variant="ghost" size="sm" asChild>
-                        <a
-                          href={notification.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      </Button>
-                    )}
+                    <div className="flex items-center gap-1">
+                      {notification.url && (
+                        <Button variant="ghost" size="sm" asChild>
+                          <a
+                            href={notification.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </Button>
+                      )}
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <button
+                            className="p-2 opacity-0 group-hover:opacity-100 hover:bg-muted-foreground/10 rounded transition-opacity"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreHorizontal className="w-4 h-4" />
+                          </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onToggleReadStatus(notification.id);
+                            }}
+                          >
+                            {notification.isRead ? (
+                              <>
+                                <X className="w-4 h-4 mr-2" />
+                                Mark as unread
+                              </>
+                            ) : (
+                              <>
+                                <Check className="w-4 h-4 mr-2" />
+                                Mark as read
+                              </>
+                            )}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (
+                                confirm(
+                                  "Are you sure you want to delete this event?"
+                                )
+                              ) {
+                                onDeleteEvent(notification.id);
+                              }
+                            }}
+                            className="text-destructive focus:text-destructive"
+                          >
+                            <Trash2 className="w-4 h-4 mr-2" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
