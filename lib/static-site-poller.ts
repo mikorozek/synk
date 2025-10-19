@@ -6,6 +6,7 @@ interface StaticSitePollingResult {
     successful: number;
     failed: number;
     changesDetected: number;
+    eventsCreated: number;
     errors: Array<{
         sourceId: number;
         sourceUrl: string;
@@ -18,6 +19,7 @@ interface ProcessedSource {
     sourceId: number;
     success: boolean;
     hasChanges: boolean;
+    eventCreated: boolean;
     error?: string;
 }
 
@@ -53,6 +55,7 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
                 sourceId: source.id,
                 success: false,
                 hasChanges: false,
+                eventCreated: false,
                 error: error instanceof Error ? error.message : 'Unknown error'
             });
         }
@@ -61,6 +64,7 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
     const successful = results.filter(r => r.success).length;
     const failed = results.filter(r => !r.success).length;
     const changesDetected = results.filter(r => r.hasChanges).length;
+    const eventsCreated = results.filter(r => r.eventCreated).length;
     const errors = results
         .filter(r => !r.success)
         .map(r => {
@@ -74,13 +78,14 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
 
     const duration = (Date.now() - startTime) / 1000;
 
-    console.log(`[Static Site Poller] Completed: ${successful} successful, ${failed} failed, ${changesDetected} changes detected in ${duration}s`);
+    console.log(`[Static Site Poller] Completed: ${successful} successful, ${failed} failed, ${changesDetected} changes detected, ${eventsCreated} events created in ${duration}s`);
 
     return {
         polled: sourcesToPoll.length,
         successful,
         failed,
         changesDetected,
+        eventsCreated,
         errors,
         duration
     };
@@ -102,7 +107,8 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
             return {
                 sourceId: source.id,
                 success: true,
-                hasChanges: false
+                hasChanges: false,
+                eventCreated: false
             };
         }
 
@@ -128,7 +134,23 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
                 console.log(`[Static Site Poller] Changes detected for source ${source.id} (${source.sourceUrl})`);
                 console.log(`[Static Site Poller] Diff summary:`);
 
-                logLineLevelDiff(source.lastContent, newContent);
+                const { diffOutput } = logLineLevelDiff(source.lastContent, newContent);
+
+                // Create event for the detected changes
+                const now = new Date();
+                await prisma.event.create({
+                    data: {
+                        topicId: source.topicId,
+                        title: `Website content updated`,
+                        summary: `Content changes detected on ${source.sourceUrl}`,
+                        eventUrl: source.sourceUrl,
+                        publishedAt: now,
+                        contentDiff: diffOutput,
+                        unread: true
+                    }
+                });
+
+                console.log(`[Static Site Poller] Created event for source ${source.id} changes`);
 
                 await prisma.source.update({
                     where: { id: source.id },
@@ -150,7 +172,8 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
         return {
             sourceId: source.id,
             success: true,
-            hasChanges
+            hasChanges,
+            eventCreated: hasChanges
         };
 
     } catch (error) {
@@ -160,6 +183,7 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
             sourceId: source.id,
             success: false,
             hasChanges: false,
+            eventCreated: false,
             error: error instanceof Error ? error.message : 'Unknown error'
         };
     }
