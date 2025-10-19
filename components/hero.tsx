@@ -40,10 +40,10 @@ export function Hero() {
         </div>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 border-2 border-yellow-300 text-gray-900 text-sm font-bold mb-8 shadow-xl shadow-yellow-400/40">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-900 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-gray-900"></span>
           </span>
           AI-Powered Notification Intelligence
         </div>
@@ -51,11 +51,11 @@ export function Hero() {
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance leading-tight">
           Stay Synced with
           <br />
-          <span className="text-accent">What Matters</span>
+          <span className="text-yellow-400">What Matters</span>
         </h1>
 
         <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto text-balance leading-relaxed">
-          AI-powered notifications that cut through the noise. Never miss critical updates from your constant data flow.
+          AI-powered notifications that cut through the noise. Track blockchain events, social media, and more with intelligent filtering and Yolo Mode auto-discovery.
         </p>
 
         {/* CTA Buttons */}

@@ -1,13 +1,18 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Bell, Zap, Shield, Brain, Users, Filter } from "lucide-react"
+import { Bell, Zap, Brain, Users, Filter, Rocket } from "lucide-react"
 
 const features = [
   {
     icon: Brain,
     title: "AI-Powered Filtering",
     description: "Machine learning algorithms understand your preferences and filter notifications intelligently.",
+  },
+  {
+    icon: Rocket,
+    title: "Yolo Mode",
+    description: "Enable agentic aggressive trading that automatically executes trades based on real-time events related to your topics. AI-powered decision making for fast-moving markets.",
   },
   {
     icon: Users,
@@ -22,12 +27,7 @@ const features = [
   {
     icon: Filter,
     title: "Multi-Source Aggregation",
-    description: "Combine Reddit, Twitter, RSS feeds, and more into a single intelligent notification stream.",
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "Bank-grade encryption and compliance with SOC 2, GDPR, and HIPAA standards.",
+    description: "Combine Reddit, Twitter, RSS feeds, blockchain data, and more into a single intelligent notification stream.",
   },
   {
     icon: Bell,
