@@ -23,17 +23,21 @@ model Topic {
 }
 
 model Event {
-  id        Int      @id @default(autoincrement())
-  eventUrl  String?  @map("event_url") @db.VarChar(1000)
-  topicId   Int      @map("topic_id")
-  summary   String?
-  title     String   @db.VarChar(500)
-  createdAt DateTime @default(now()) @map("created_at")
-  
+  id          Int       @id @default(autoincrement())
+  eventUrl    String?   @map("event_url") @db.VarChar(1000)
+  topicId     Int       @map("topic_id")
+  summary     String?
+  title       String    @db.VarChar(500)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  publishedAt DateTime? @map("published_at")
+  unread      Boolean   @default(true)
+
   topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  
+
   @@index([topicId])
   @@index([createdAt(sort: Desc)])
+  @@index([publishedAt(sort: Desc)])
+  @@index([unread])
   @@map("events")
 }
 
@@ -42,10 +46,15 @@ model Source {
   topicId   Int    @map("topic_id")
   sourceUrl String @map("source_url") @db.VarChar(1000)
   type      String @db.VarChar(100) // RSS, Twitter, Newsletter, etc.
-  
+
+  // RSS polling fields
+  lastFetchedAt DateTime? @map("last_fetched_at")
+  lastItemGuid  String?   @map("last_item_guid") @db.VarChar(500)
+
   topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  
+
   @@index([topicId])
   @@index([type])
+  @@index([type, lastFetchedAt]) // For efficient polling queries
   @@map("sources")
 }

@@ -1,118 +1,43 @@
 # Quick Start Guide
 
-## One Command to Rule Them All
+## Database Migrations ✅
 
-When you change `prisma/schema.prisma`, just run:
+All required migrations have been applied:
+- ✅ RSS polling fields (`last_fetched_at`, `last_item_guid`) on sources table
+- ✅ Unread field on events table
+- ✅ All indexes created
 
+---
+
+## Testing RSS Polling
+
+### 1. Setup Test RSS Sources
 ```bash
-./migrate.sh your_migration_name
+npx tsx setup-test-rss-sources.ts
 ```
 
-**Example:**
+### 2. Test Polling
 ```bash
-# Edit prisma/schema.prisma (add a field, change a table, etc.)
-
-# Then run:
-./migrate.sh add_description_field
-
-# That's it! ✅
+./quick-test-rss.sh poll
 ```
 
-## What It Does
-
-1. ✅ Creates a new migration based on your schema changes
-2. ✅ Applies the migration to your database
-3. ✅ Rebuilds Docker containers
-4. ✅ Regenerates Prisma Client with new TypeScript types
-
-## Alternative: NPM Scripts
-
-If you prefer npm commands:
-
+### 3. Check Status
 ```bash
-# Full rebuild (when you make schema changes)
-npm run docker:rebuild
-
-# Quick restart (no schema changes)
-npm run docker:restart
-
-# Update schema in running container + restart
-npm run schema:update
+./quick-test-rss.sh status
 ```
 
-## Common Workflows
-
-### Starting the Project
+### 4. Reset and Re-poll (for testing)
 ```bash
-docker compose up -d
-# Migrations run automatically! 🎉
+./quick-test-rss.sh reset
+./quick-test-rss.sh poll
 ```
 
-### Adding a New Field
-```bash
-# 1. Edit prisma/schema.prisma
-# model Topic {
-#   id          Int    @id @default(autoincrement())
-#   prompt      String
-#   title       String @db.VarChar(255)
-#   description String? // <- Add this
-# }
+---
 
-# 2. Run migration
-./migrate.sh add_topic_description
-```
+## Documentation Files
 
-### Creating a New Table
-```bash
-# 1. Edit prisma/schema.prisma
-# model User {
-#   id    Int    @id @default(autoincrement())
-#   email String @unique
-#   name  String?
-# }
-
-# 2. Run migration
-./migrate.sh add_user_table
-```
-
-### Viewing the Database
-```bash
-docker exec -it synk-app-1 npx prisma studio
-# Opens at http://localhost:5555
-```
-
-### Resetting Everything
-```bash
-# WARNING: Deletes all data!
-docker compose down -v
-docker compose up -d --build
-```
-
-## Troubleshooting
-
-### Migration script fails
-Make sure containers are running:
-```bash
-docker compose ps
-```
-
-### Want to see what changed?
-Check the migration file:
-```bash
-cat prisma/migrations/*/migration.sql
-```
-
-### Manual migration (if script fails)
-```bash
-docker exec synk-app-1 npx prisma migrate dev --name your_name
-docker compose up -d --build
-```
-
-## That's It!
-
-You now have **automatic migrations** with a **single command**. No manual steps, no remembering complex docker commands.
-
-Just edit your schema and run:
-```bash
-./migrate.sh your_change_name
-```
+- `RSS_POLLING_SPEC.md` - Original specification
+- `RSS_TESTING_GUIDE.md` - Complete testing guide
+- `UNREAD_EVENTS_FEATURE.md` - Unread events documentation
+- `MIGRATION_APPLIED.md` - Migration details
+- `QUICK_START.md` - This file
