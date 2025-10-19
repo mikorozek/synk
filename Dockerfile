@@ -17,6 +17,8 @@ COPY . .
 # Generate Prisma client
 RUN npm run db:generate
 
+RUN npm run build
+
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
@@ -24,4 +26,3 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 3000
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["npm", "run", "dev"]

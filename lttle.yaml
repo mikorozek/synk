@@ -13,6 +13,7 @@ app:
   resources:
     cpu: 1
     memory: 256
+  restart-policy: never
   mode:
     flash:
       strategy:
@@ -48,10 +49,10 @@ app:
     namespace: synk
     path: /var/lib/postgresql/data
   environment:
-    POSTGRES_DB: synk_db
-    POSTGRES_PASSWORD: synk_password
+    POSTGRES_DB: ${{ env.POSTGRES_DB }}
+    POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
     POSTGRES_PORT: '5432'
-    POSTGRES_USER: synk_user
+    POSTGRES_USER: ${{ env.POSTGRES_USER }}
   expose:
     main:
       port: 5432

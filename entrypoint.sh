@@ -2,8 +2,8 @@
 set -e
 
 echo "🔄 Running database migrations..."
-npx prisma migrate dev --name init
+npx prisma db push
 
 echo "✅ Database ready!"
 echo "🚀 Starting application..."
-exec "$@"
+npm start
