@@ -36,5 +36,18 @@ services:
     env_file:
       - .env
 
+  prisma-studio:
+    build: .
+    ports:
+      - "5555:5555"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: npx prisma studio --port 5555 --hostname 0.0.0.0
+
 volumes:
   postgres_data:
