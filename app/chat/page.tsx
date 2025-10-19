@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
@@ -9,66 +9,25 @@ import { TopicBoard } from "@/components/topic-board";
 import { useToast } from "@/hooks/use-toast";
 import { List } from "lucide-react";
 
+// Polling interval in milliseconds (5 seconds)
+const POLLING_INTERVAL = 5000;
+
 export default function HomePage() {
     const [topics, setTopics] = useState<Topic[]>([]);
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
     const [leftSidebarOpen, setLeftSidebarOpen] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const { toast } = useToast();
+    const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                // Load topics
-                const topicsResponse = await fetch("/api/topics");
-                if (topicsResponse.ok) {
-                    const apiTopics = await topicsResponse.json();
-                    const formattedTopics = apiTopics.map((topic: any) => ({
-                        id: topic.id.toString(),
-                        title: topic.title,
-                        prompt: topic.prompt,
-                        createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
-                    }));
-                    setTopics(formattedTopics);
-                }
-
-                // Load events (notifications)
-                const eventsResponse = await fetch("/api/events");
-                if (eventsResponse.ok) {
-                    const apiEvents = await eventsResponse.json();
-                    const formattedNotifications = apiEvents.map((event: any) => ({
-                        id: event.id.toString(),
-                        topicId: event.topicId.toString(),
-                        title: event.title,
-                        content: event.summary || "",
-                        source: "Event Monitor",
-                        url: event.eventUrl,
-                        createdAt: new Date(event.createdAt),
-                        isRead: !event.unread, // unread: true means isRead: false
-                    }));
-                    setNotifications(formattedNotifications);
-                }
-            } catch (error) {
-                console.error("Error loading data from API:", error);
-                toast({
-                    title: "Failed to load data",
-                    description: "Could not connect to the server",
-                    variant: "destructive",
-                });
-            }
-        };
-
-        loadData();
-    }, [toast]);
-
-
-    const handleCreateTopic = async (title: string, prompt: string) => {
-        // This is called by ChatFlowWrapper after the topic has already been created
-        // We just need to update the local state
-        // The API call is made inside ChatFlowWrapper with the conversation context
-
-        // Reload topics from the server to get the latest
+    const loadData = useCallback(async (silent: boolean = false) => {
         try {
+            if (!silent) {
+                setIsRefreshing(true);
+            }
+
+            // Load topics
             const topicsResponse = await fetch("/api/topics");
             if (topicsResponse.ok) {
                 const apiTopics = await topicsResponse.json();
@@ -79,22 +38,73 @@ export default function HomePage() {
                     createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
                 }));
                 setTopics(formattedTopics);
+            }
 
-                // Don't auto-select the topic - let the user click the "Go to" button instead
-                // This allows them to see the completion message and choose when to proceed
-
-                toast({
-                    title: "Topic created",
-                    description: `Now tracking "${title}"`,
-                });
+            // Load events (notifications)
+            const eventsResponse = await fetch("/api/events");
+            if (eventsResponse.ok) {
+                const apiEvents = await eventsResponse.json();
+                const formattedNotifications = apiEvents.map((event: any) => ({
+                    id: event.id.toString(),
+                    topicId: event.topicId.toString(),
+                    title: event.title,
+                    content: event.summary || "",
+                    source: "Event Monitor",
+                    url: event.eventUrl,
+                    createdAt: new Date(event.createdAt),
+                    isRead: !event.unread, // unread: true means isRead: false
+                }));
+                setNotifications(formattedNotifications);
             }
         } catch (error) {
-            console.error("Error loading topics:", error);
-            toast({
-                title: "Topic created",
-                description: `Now tracking "${title}"`,
-            });
+            console.error("Error loading data from API:", error);
+            if (!silent) {
+                toast({
+                    title: "Failed to load data",
+                    description: "Could not connect to the server",
+                    variant: "destructive",
+                });
+            }
+        } finally {
+            if (!silent) {
+                setIsRefreshing(false);
+            }
         }
+    }, [toast]);
+
+    // Initial load
+    useEffect(() => {
+        loadData(false);
+    }, [loadData]);
+
+    // Setup polling
+    useEffect(() => {
+        // Start polling
+        pollingIntervalRef.current = setInterval(() => {
+            loadData(true); // Silent refresh
+        }, POLLING_INTERVAL);
+
+        // Cleanup on unmount
+        return () => {
+            if (pollingIntervalRef.current) {
+                clearInterval(pollingIntervalRef.current);
+            }
+        };
+    }, [loadData]);
+
+
+    const handleCreateTopic = async (title: string, prompt: string) => {
+        // This is called by ChatFlowWrapper after the topic has already been created
+        // We just need to update the local state
+        // The API call is made inside ChatFlowWrapper with the conversation context
+
+        // Reload topics from the server to get the latest
+        await loadData(false);
+
+        toast({
+            title: "Topic created",
+            description: `Now tracking "${title}"`,
+        });
     };
 
     const handleTopicClick = async (topic: Topic) => {
