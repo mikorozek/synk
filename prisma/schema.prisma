@@ -31,6 +31,7 @@ model Event {
   createdAt   DateTime  @default(now()) @map("created_at")
   publishedAt DateTime? @map("published_at")
   unread      Boolean   @default(true)
+  contentDiff String?   @map("content_diff")
 
   topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
 
@@ -50,6 +51,9 @@ model Source {
   // RSS polling fields
   lastFetchedAt DateTime? @map("last_fetched_at")
   lastItemGuid  String?   @map("last_item_guid") @db.VarChar(500)
+  
+  // Static site monitoring fields
+  lastContent   String?   @map("last_content")
 
   topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
 
