@@ -19,7 +19,7 @@ const SourceDiscoverySchema = z.object({
 
 // Schema for title generation response
 const TitleGenerationSchema = z.object({
-  title: z.string(),
+    title: z.string(),
 });
 
 const NotificationEvaluationSchema = z.object({
@@ -66,15 +66,15 @@ export interface EvaluateRssItemInput {
  * @returns String containing clarifying questions
  */
 export async function generateClarifyingQuestions(
-  prompt: string
+    prompt: string
 ): Promise<string> {
-  console.log('[AI] Starting clarifying questions generation');
-  console.log(`[AI] Initial prompt: ${prompt}`);
+    console.log('[AI] Starting clarifying questions generation');
+    console.log(`[AI] Initial prompt: ${prompt}`);
 
-  try {
-    const result = await generateText({
-      model: openai('gpt-4o-mini'),
-      system: `You are helping users set up topic monitoring for web events.
+    try {
+        const result = await generateText({
+            model: openai('gpt-4o-mini'),
+            system: `You are helping users set up topic monitoring for web events.
 Users often provide general requests, and your job is to ask clarifying questions to understand:
 - What specific topic or subject they want to track
 - What types of events or updates they're interested in
@@ -82,27 +82,29 @@ Users often provide general requests, and your job is to ask clarifying question
 
 Generate around 3 thoughtful clarifying questions that will help niche down their request.
 
-**Format your response as a numbered list with markdown formatting.**
+**Format your response with markdown formatting. **
 
 Example response format:
-1. What **specific aspects** of this topic are you most interested in?
-2. Are there any *particular timeframes* or contexts you'd like me to focus on?
-3. Do you want updates from **specific sources** or perspectives?
+What **specific aspects** of this topic are you most interested in?
+
+Are there any *particular timeframes* or contexts you'd like me to focus on?
+
+Do you want updates from **specific sources** or perspectives?
 
 Use **bold** for emphasis on key terms and *italics* for subtle emphasis.`,
-      prompt: `User wants to track: "${prompt}"\n\nGenerate clarifying questions to better understand what they want to monitor.`,
-    });
+            prompt: `User wants to track: "${prompt}"\n\nGenerate clarifying questions to better understand what they want to monitor.`,
+        });
 
-    console.log('[AI] Clarifying questions generated successfully');
-    console.log(`[AI] Questions: ${result.text}`);
+        console.log('[AI] Clarifying questions generated successfully');
+        console.log(`[AI] Questions: ${result.text}`);
 
-    return result.text;
-  } catch (error) {
-    console.error('[AI] Clarifying questions generation failed:', error);
-    throw new Error(
-      `Failed to generate clarifying questions: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
-  }
+        return result.text;
+    } catch (error) {
+        console.error('[AI] Clarifying questions generation failed:', error);
+        throw new Error(
+            `Failed to generate clarifying questions: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
 }
 
 /**
@@ -112,56 +114,56 @@ Use **bold** for emphasis on key terms and *italics* for subtle emphasis.`,
  * @returns Object containing discovered sources
  */
 export async function discoverSources(
-  prompt: string,
-  isConversation: boolean = false
+    prompt: string,
+    isConversation: boolean = false
 ): Promise<SourceDiscoveryResult> {
-  console.log('[AI] Starting source discovery with GPT-5-mini');
-  console.log(`[AI] Prompt: ${prompt}`);
+    console.log('[AI] Starting source discovery with GPT-5-mini');
+    console.log(`[AI] Prompt: ${prompt}`);
 
-  const systemPrompt = isConversation
-    ? `The user has had a conversation about what they want to track. The conversation is provided below, where they discussed their interests and preferences. Based on this full conversation, find relevant sources.`
-    : undefined;
+    const systemPrompt = isConversation
+        ? `The user has had a conversation about what they want to track. The conversation is provided below, where they discussed their interests and preferences. Based on this full conversation, find relevant sources.`
+        : undefined;
 
-  try {
-    const result = await generateText({
-      model: openai('gpt-5-mini'),
-      system: systemPrompt,
-      prompt: isConversation
-        ? `Based on this conversation:\n\n${prompt}\n\nFind relevant sources for what the user wants to track.`
-        : `Find relevant sources about ${prompt}`,
-      tools: {
-        web_search: openai.tools.webSearch({
-          searchContextSize: 'low',
-        }),
-      },
-      toolChoice: { type: 'tool', toolName: 'web_search' },
-    });
+    try {
+        const result = await generateText({
+            model: openai('gpt-5-mini'),
+            system: systemPrompt,
+            prompt: isConversation
+                ? `Based on this conversation:\n\n${prompt}\n\nFind relevant sources for what the user wants to track.`
+                : `Find relevant sources about ${prompt}`,
+            tools: {
+                web_search: openai.tools.webSearch({
+                    searchContextSize: 'low',
+                }),
+            },
+            toolChoice: { type: 'tool', toolName: 'web_search' },
+        });
 
-    console.log('[AI] Source discovery completed successfully');
-    console.log(`[AI] Web search sources: ${result.sources?.length || 0}`);
+        console.log('[AI] Source discovery completed successfully');
+        console.log(`[AI] Web search sources: ${result.sources?.length || 0}`);
 
-    // Extract sources from web search results and categorize them
-    const sources = (result.sources || []).map((source: any) => ({
-      url: source.url,
-      type: (source.url.includes('/feed') || source.url.includes('/rss') || source.url.endsWith('.xml'))
-        ? 'RSS' as const
-        : 'Static Page' as const,
-      description: source.title || 'Web source',
-    }));
+        // Extract sources from web search results and categorize them
+        const sources = (result.sources || []).map((source: any) => ({
+            url: source.url,
+            type: (source.url.includes('/feed') || source.url.includes('/rss') || source.url.endsWith('.xml'))
+                ? 'RSS' as const
+                : 'Static Page' as const,
+            description: source.title || 'Web source',
+        }));
 
-    console.log(`[AI] Processed ${sources.length} sources`);
+        console.log(`[AI] Processed ${sources.length} sources`);
 
-    // Generate initial report based on discovered sources
-    console.log('[AI] Generating initial report');
-    const reportResult = await generateObject({
-      model: openai('gpt-5'),
-      mode: 'json',
-      schema: z.object({
-        title: z.string().describe('A concise title for the initial status report'),
-        summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
-      }),
-      system: 'You are creating an initial status report for a new monitoring topic. The report should confirm what sources were found and what will be tracked.',
-      prompt: `User's request: ${prompt}
+        // Generate initial report based on discovered sources
+        console.log('[AI] Generating initial report');
+        const reportResult = await generateObject({
+            model: openai('gpt-5'),
+            mode: 'json',
+            schema: z.object({
+                title: z.string().describe('A concise title for the initial status report'),
+                summary: z.string().describe('A brief summary of what sources were found and what will be tracked'),
+            }),
+            system: 'You are creating an initial status report for a new monitoring topic. The report should confirm what sources were found and what will be tracked.',
+            prompt: `User's request: ${prompt}
 
 Discovered sources:
 ${sources.map((s, i) => `${i + 1}. ${s.description} (${s.url})`).join('\n')}
@@ -170,20 +172,20 @@ Create an initial report that:
 - Has a clear, concise title (e.g., "Monitoring Setup Complete" or "Started Tracking [Topic]")
 - Summarizes what sources were found and confirms what will be monitored
 - Is encouraging and confirms the tracking has begun`,
-    });
+        });
 
-    console.log('[AI] Initial report generated');
+        console.log('[AI] Initial report generated');
 
-    return {
-      sources,
-      initialReport: reportResult.object
-    };
-  } catch (error) {
-    console.error('[AI] Source discovery failed:', error);
-    throw new Error(
-      `Failed to discover sources: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
-  }
+        return {
+            sources,
+            initialReport: reportResult.object
+        };
+    } catch (error) {
+        console.error('[AI] Source discovery failed:', error);
+        throw new Error(
+            `Failed to discover sources: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
 }
 
 /**
@@ -193,45 +195,45 @@ Create an initial report that:
  * @returns Object containing the generated title (truncated to 255 chars if needed)
  */
 export async function generateTitle(
-  prompt: string,
-  isConversation: boolean = false
+    prompt: string,
+    isConversation: boolean = false
 ): Promise<TitleGenerationResult> {
-  console.log('[AI] Starting title generation with GPT-5');
-  console.log(`[AI] Prompt: ${prompt}`);
+    console.log('[AI] Starting title generation with GPT-5');
+    console.log(`[AI] Prompt: ${prompt}`);
 
-  const systemPrompt = isConversation
-    ? `Generate a short, descriptive title based on the conversation. The conversation shows what the user wants to track, including clarifications about their interests.`
-    : `Generate a short, descriptive title for the given topic.`;
+    const systemPrompt = isConversation
+        ? `Generate a short, descriptive title based on the conversation. The conversation shows what the user wants to track, including clarifications about their interests.`
+        : `Generate a short, descriptive title for the given topic.`;
 
-  try {
-    const result = await generateObject({
-      model: openai('gpt-5'),
-      system: systemPrompt,
-      prompt: isConversation
-        ? `Based on this conversation:\n\n${prompt}\n\nGenerate a title for what the user wants to track.`
-        : `Generate a title for: ${prompt}`,
-      schema: TitleGenerationSchema,
-      mode: 'json',
-    });
+    try {
+        const result = await generateObject({
+            model: openai('gpt-5'),
+            system: systemPrompt,
+            prompt: isConversation
+                ? `Based on this conversation:\n\n${prompt}\n\nGenerate a title for what the user wants to track.`
+                : `Generate a title for: ${prompt}`,
+            schema: TitleGenerationSchema,
+            mode: 'json',
+        });
 
-    // Truncate to 255 characters if needed (database constraint)
-    const title = result.object.title.length > 255
-      ? result.object.title.substring(0, 255)
-      : result.object.title;
+        // Truncate to 255 characters if needed (database constraint)
+        const title = result.object.title.length > 255
+            ? result.object.title.substring(0, 255)
+            : result.object.title;
 
-    console.log('[AI] Title generation completed successfully');
-    console.log(`[AI] Generated title: ${title}`);
-    if (result.object.title.length > 255) {
-      console.log(`[AI] Title was truncated from ${result.object.title.length} to 255 characters`);
+        console.log('[AI] Title generation completed successfully');
+        console.log(`[AI] Generated title: ${title}`);
+        if (result.object.title.length > 255) {
+            console.log(`[AI] Title was truncated from ${result.object.title.length} to 255 characters`);
+        }
+
+        return { title };
+    } catch (error) {
+        console.error('[AI] Title generation failed:', error);
+        throw new Error(
+            `Failed to generate title: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
     }
-
-    return { title };
-  } catch (error) {
-    console.error('[AI] Title generation failed:', error);
-    throw new Error(
-      `Failed to generate title: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
-  }
 }
 
 function formatConversationForAgent(messages: Array<{ role: 'user' | 'assistant'; content: string }>): string {
