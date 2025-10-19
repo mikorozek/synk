@@ -22,23 +22,77 @@ export type SourceDiscoveryResult = z.infer<typeof SourceDiscoverySchema>;
 export type TitleGenerationResult = z.infer<typeof TitleGenerationSchema>;
 
 /**
- * Discovers relevant sources for a topic using GPT-5 with web search
- * @param prompt - The user's topic prompt
- * @returns Object containing discovered sources
+ * Generates clarifying questions to better understand what the user wants to track
+ * @param prompt - The user's initial prompt
+ * @returns String containing clarifying questions
  */
-export async function discoverSources(
+export async function generateClarifyingQuestions(
   prompt: string
-): Promise<SourceDiscoveryResult> {
-  console.log('[AI] Starting source discovery with GPT-5');
-  console.log(`[AI] Prompt: ${prompt}`);
+): Promise<string> {
+  console.log('[AI] Starting clarifying questions generation');
+  console.log(`[AI] Initial prompt: ${prompt}`);
 
   try {
     const result = await generateText({
-      model: openai('gpt-5'),
-      prompt: `Find relevant sources about ${prompt}`,
+      model: openai('gpt-4o-mini'),
+      system: `You are helping users set up topic monitoring for web events.
+Users often provide general requests, and your job is to ask clarifying questions to understand:
+- What specific topic or subject they want to track
+- What types of events or updates they're interested in
+- Any specific sources, perspectives, or contexts they care about
+
+Generate around 3 thoughtful clarifying questions that will help niche down their request.
+
+**Format your response as a numbered list with markdown formatting.**
+
+Example response format:
+1. What **specific aspects** of this topic are you most interested in?
+2. Are there any *particular timeframes* or contexts you'd like me to focus on?
+3. Do you want updates from **specific sources** or perspectives?
+
+Use **bold** for emphasis on key terms and *italics* for subtle emphasis.`,
+      prompt: `User wants to track: "${prompt}"\n\nGenerate clarifying questions to better understand what they want to monitor.`,
+    });
+
+    console.log('[AI] Clarifying questions generated successfully');
+    console.log(`[AI] Questions: ${result.text}`);
+
+    return result.text;
+  } catch (error) {
+    console.error('[AI] Clarifying questions generation failed:', error);
+    throw new Error(
+      `Failed to generate clarifying questions: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
+  }
+}
+
+/**
+ * Discovers relevant sources for a topic using GPT-5 with web search
+ * @param prompt - The user's topic prompt (or formatted conversation)
+ * @param isConversation - Whether the prompt is a formatted conversation
+ * @returns Object containing discovered sources
+ */
+export async function discoverSources(
+  prompt: string,
+  isConversation: boolean = false
+): Promise<SourceDiscoveryResult> {
+  console.log('[AI] Starting source discovery with GPT-5-mini');
+  console.log(`[AI] Prompt: ${prompt}`);
+
+  const systemPrompt = isConversation
+    ? `The user has had a conversation about what they want to track. The conversation is provided below, where they discussed their interests and preferences. Based on this full conversation, find relevant sources.`
+    : undefined;
+
+  try {
+    const result = await generateText({
+      model: openai('gpt-5-mini'),
+      system: systemPrompt,
+      prompt: isConversation
+        ? `Based on this conversation:\n\n${prompt}\n\nFind relevant sources for what the user wants to track.`
+        : `Find relevant sources about ${prompt}`,
       tools: {
         web_search: openai.tools.webSearch({
-          searchContextSize: 'high',
+          searchContextSize: 'low',
         }),
       },
       toolChoice: { type: 'tool', toolName: 'web_search' },
@@ -69,20 +123,28 @@ export async function discoverSources(
 
 /**
  * Generates a title for a topic using GPT-5
- * @param prompt - The user's original prompt
+ * @param prompt - The user's original prompt (or formatted conversation)
+ * @param isConversation - Whether the prompt is a formatted conversation
  * @returns Object containing the generated title (truncated to 255 chars if needed)
  */
 export async function generateTitle(
-  prompt: string
+  prompt: string,
+  isConversation: boolean = false
 ): Promise<TitleGenerationResult> {
   console.log('[AI] Starting title generation with GPT-5');
   console.log(`[AI] Prompt: ${prompt}`);
 
+  const systemPrompt = isConversation
+    ? `Generate a short, descriptive title based on the conversation. The conversation shows what the user wants to track, including clarifications about their interests.`
+    : `Generate a short, descriptive title for the given topic.`;
+
   try {
     const result = await generateObject({
       model: openai('gpt-5'),
-      system: `Generate a short, descriptive title for the given topic.`,
-      prompt: `Generate a title for: ${prompt}`,
+      system: systemPrompt,
+      prompt: isConversation
+        ? `Based on this conversation:\n\n${prompt}\n\nGenerate a title for what the user wants to track.`
+        : `Generate a title for: ${prompt}`,
       schema: TitleGenerationSchema,
       mode: 'json',
     });
