@@ -1,5 +1,7 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
-import * as fastDiff from 'fast-diff';
+import fastDiff from 'fast-diff';
+import { evaluateStaticSiteChange } from '@/lib/ai';
 
 interface StaticSitePollingResult {
     polled: number;
@@ -23,6 +25,16 @@ interface ProcessedSource {
     error?: string;
 }
 
+type SourceWithTopic = Prisma.SourceGetPayload<{
+    include: {
+        topic: {
+            include: {
+                conversationMessages: true;
+            };
+        };
+    };
+}>;
+
 export async function pollStaticSites(): Promise<StaticSitePollingResult> {
     const startTime = Date.now();
     const results: ProcessedSource[] = [];
@@ -40,7 +52,13 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
             ]
         },
         include: {
-            topic: true
+            topic: {
+                include: {
+                    conversationMessages: {
+                        orderBy: { createdAt: 'asc' }
+                    }
+                }
+            }
         }
     });
 
@@ -91,7 +109,7 @@ export async function pollStaticSites(): Promise<StaticSitePollingResult> {
     };
 }
 
-async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
+async function processSingleStaticSite(source: SourceWithTopic): Promise<ProcessedSource> {
     console.log(`[Static Site Poller] Processing source ${source.id}: ${source.sourceUrl}`);
 
     try {
@@ -113,6 +131,11 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
         }
 
         let hasChanges = false;
+
+        const conversationMessages = (source.topic.conversationMessages || []).map(message => ({
+            role: message.role === 'assistant' ? 'assistant' : 'user',
+            content: message.content
+        }));
 
         if (!source.lastContent) {
             console.log(`[Static Site Poller] First scrape for source ${source.id} - storing initial content`);
@@ -136,21 +159,63 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
 
                 const { diffOutput } = logLineLevelDiff(source.lastContent, newContent);
 
-                // Create event for the detected changes
-                const now = new Date();
-                await prisma.event.create({
-                    data: {
-                        topicId: source.topicId,
-                        title: `Website content updated`,
-                        summary: `Content changes detected on ${source.sourceUrl}`,
-                        eventUrl: source.sourceUrl,
-                        publishedAt: now,
-                        contentDiff: diffOutput,
-                        unread: true
-                    }
+                const previousEvents = await prisma.event.findMany({
+                    where: { topicId: source.topicId },
+                    orderBy: { createdAt: 'desc' },
+                    take: 10
                 });
 
-                console.log(`[Static Site Poller] Created event for source ${source.id} changes`);
+                const eventsForContext = previousEvents.map(event => ({
+                    title: event.title,
+                    summary: event.summary,
+                    url: event.eventUrl
+                }));
+
+                let eventCreated = false;
+
+                try {
+                    const evaluation = await evaluateStaticSiteChange({
+                        topicPrompt: source.topic.prompt,
+                        conversation: conversationMessages,
+                        previousEvents: eventsForContext,
+                        change: {
+                            sourceUrl: source.sourceUrl,
+                            oldContent: source.lastContent,
+                            newContent,
+                            diff: diffOutput
+                        }
+                    });
+
+                    if (!evaluation.matchesUserPrompt) {
+                        console.log(`[Static Site Poller] Agent rejected change for source ${source.id}`);
+                    } else {
+                        const notificationTitle = evaluation.notificationName?.trim();
+                        const notificationSummary = evaluation.notificationDescription?.trim() || null;
+
+                        if (!notificationTitle) {
+                            throw new Error('Agent returned matchesUserPrompt=true without notificationName');
+                        }
+
+                        const now = new Date();
+                        await prisma.event.create({
+                            data: {
+                                topicId: source.topicId,
+                                title: notificationTitle,
+                                summary: notificationSummary,
+                                eventUrl: source.sourceUrl,
+                                publishedAt: now,
+                                contentDiff: diffOutput,
+                                unread: true
+                            }
+                        });
+
+                        console.log(`[Static Site Poller] Created agent-approved event for source ${source.id}`);
+                        eventCreated = true;
+                    }
+                } catch (error) {
+                    console.error(`[Static Site Poller] Agent evaluation failed for source ${source.id}:`, error);
+                    throw error;
+                }
 
                 await prisma.source.update({
                     where: { id: source.id },
@@ -159,6 +224,13 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
                         lastFetchedAt: new Date()
                     }
                 });
+
+                return {
+                    sourceId: source.id,
+                    success: true,
+                    hasChanges,
+                    eventCreated
+                };
             } else {
                 console.log(`[Static Site Poller] No changes detected for source ${source.id}`);
 
@@ -173,7 +245,7 @@ async function processSingleStaticSite(source: any): Promise<ProcessedSource> {
             sourceId: source.id,
             success: true,
             hasChanges,
-            eventCreated: hasChanges
+            eventCreated: false
         };
 
     } catch (error) {

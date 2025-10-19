@@ -71,6 +71,7 @@ if [ $? -eq 0 ]; then
   echo "  ✅ Added index on (type, last_fetched_at)"
   echo "  ✅ Added unread field to events table"
   echo "  ✅ Added index on unread"
+  echo "  ✅ Added topic_conversation_messages table"
   echo "  ✅ Regenerated Prisma Client"
   echo ""
   echo "🎯 Next steps:"

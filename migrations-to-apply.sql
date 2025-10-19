@@ -1,9 +1,8 @@
+-- Combined Migration: RSS Polling + Unread Events + Conversation History
 -- ============================================
--- Combined Migration: RSS Polling + Unread Events
--- ============================================
--- This migration adds:
 -- 1. RSS polling fields to sources table (last_fetched_at, last_item_guid)
 -- 2. Unread field to events table
+-- 3. Topic conversation history table
 -- ============================================
 
 BEGIN;
@@ -34,6 +33,25 @@ CREATE INDEX "events_unread_idx" ON "events"("unread");
 COMMIT;
 
 -- ============================================
+-- Part 3: Topic Conversation History Table
+-- ============================================
+
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS "topic_conversation_messages" (
+  "id" SERIAL PRIMARY KEY,
+  "topic_id" INTEGER NOT NULL REFERENCES "topics"("id") ON DELETE CASCADE,
+  "role" VARCHAR(50) NOT NULL,
+  "content" TEXT NOT NULL,
+  "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS "topic_conversation_messages_topic_id_idx"
+  ON "topic_conversation_messages"("topic_id");
+
+COMMIT;
+
+-- ============================================
 -- Verification Queries (run these to verify)
 -- ============================================
 
@@ -42,6 +60,9 @@ COMMIT;
 
 -- Check events table structure
 -- \d events
+
+-- Check topic conversation messages table structure
+-- \d topic_conversation_messages
 
 -- List all indexes
 -- \di

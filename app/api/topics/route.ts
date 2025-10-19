@@ -78,7 +78,23 @@ export async function POST(request: Request) {
             );
         }
 
-        // Step 5: Store sources in database
+        // Step 5: Store conversation history for this topic
+        if (conversation && Array.isArray(conversation) && conversation.length > 0) {
+            try {
+                console.log(`[API] Persisting ${conversation.length} conversation messages for topic ${newTopic.id}`);
+                await prisma.topicConversationMessage.createMany({
+                    data: conversation.map((msg: { role: string; content: string }) => ({
+                        topicId: newTopic.id,
+                        role: msg.role === 'assistant' ? 'assistant' : 'user',
+                        content: msg.content
+                    }))
+                });
+            } catch (error) {
+                console.error("[API] Failed to store conversation history:", error);
+            }
+        }
+
+        // Step 6: Store sources in database
         const savedSources = [];
         for (const source of sourcesResult.sources) {
             try {
@@ -97,7 +113,7 @@ export async function POST(request: Request) {
             }
         }
 
-        // Step 6: Return response with topic data and AI-generated sources
+        // Step 7: Return response with topic data and AI-generated sources
         console.log("[API] POST request completed successfully");
         return NextResponse.json(
             {

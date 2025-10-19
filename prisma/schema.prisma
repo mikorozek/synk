@@ -18,6 +18,7 @@ model Topic {
 
   events  Event[]
   sources Source[]
+  conversationMessages TopicConversationMessage[]
 
   @@map("topics")
 }
@@ -61,4 +62,17 @@ model Source {
   @@index([type])
   @@index([type, lastFetchedAt]) // For efficient polling queries
   @@map("sources")
+}
+
+model TopicConversationMessage {
+  id        Int      @id @default(autoincrement())
+  topicId   Int      @map("topic_id")
+  role      String   @db.VarChar(50)
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@index([topicId])
+  @@map("topic_conversation_messages")
 }
