@@ -155,7 +155,7 @@ export async function PATCH(request: Request) {
         const { searchParams } = new URL(request.url);
         const id = searchParams.get("id");
         const body = await request.json();
-        const { title } = body;
+        const { title, multiverseXYoloMode } = body;
 
         if (!id) {
             return NextResponse.json(
@@ -164,16 +164,28 @@ export async function PATCH(request: Request) {
             );
         }
 
-        if (!title) {
+        // Build update data object based on what fields are provided
+        const updateData: { title?: string; multiverseXYoloMode?: boolean } = {};
+
+        if (title !== undefined) {
+            updateData.title = title;
+        }
+
+        if (multiverseXYoloMode !== undefined) {
+            updateData.multiverseXYoloMode = multiverseXYoloMode;
+        }
+
+        // At least one field must be provided
+        if (Object.keys(updateData).length === 0) {
             return NextResponse.json(
-                { error: "Title is required" },
+                { error: "At least one field (title or multiverseXYoloMode) is required" },
                 { status: 400 }
             );
         }
 
         const updatedTopic = await prisma.topic.update({
             where: { id: parseInt(id) },
-            data: { title },
+            data: updateData,
         });
 
         return NextResponse.json(updatedTopic, { status: 200 });

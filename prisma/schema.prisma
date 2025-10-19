@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Topic {
-  id        Int      @id @default(autoincrement())
-  prompt    String
-  title     String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @map("created_at")
+  id                  Int      @id @default(autoincrement())
+  prompt              String
+  title               String   @db.VarChar(255)
+  createdAt           DateTime @default(now()) @map("created_at")
+  multiverseXYoloMode  Boolean  @default(false) @map("multiverse_yolo_mode")
 
   events  Event[]
   sources Source[]
@@ -23,15 +24,16 @@ model Topic {
 }
 
 model Event {
-  id          Int       @id @default(autoincrement())
-  eventUrl    String?   @map("event_url") @db.VarChar(1000)
-  topicId     Int       @map("topic_id")
-  summary     String?
-  title       String    @db.VarChar(500)
-  createdAt   DateTime  @default(now()) @map("created_at")
-  publishedAt DateTime? @map("published_at")
-  unread      Boolean   @default(true)
-  contentDiff String?   @map("content_diff")
+  id           Int       @id @default(autoincrement())
+  eventUrl     String?   @map("event_url") @db.VarChar(1000)
+  topicId      Int       @map("topic_id")
+  summary      String?
+  title        String    @db.VarChar(500)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  publishedAt  DateTime? @map("published_at")
+  unread       Boolean   @default(true)
+  contentDiff  String?   @map("content_diff")
+  fromYoloMode Boolean   @default(false) @map("from_yolo_mode")
 
   topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
 

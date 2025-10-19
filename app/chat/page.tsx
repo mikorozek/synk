@@ -28,6 +28,7 @@ export default function HomePage() {
                         title: topic.title,
                         prompt: topic.prompt,
                         createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
+                        multiverseXYoloMode: topic.multiverseXYoloMode || false,
                     }));
                     setTopics(formattedTopics);
                 }
@@ -45,6 +46,7 @@ export default function HomePage() {
                         url: event.eventUrl,
                         createdAt: new Date(event.createdAt),
                         isRead: !event.unread, // unread: true means isRead: false
+                        fromYoloMode: event.fromYoloMode || false,
                     }));
                     setNotifications(formattedNotifications);
                 }
@@ -77,6 +79,7 @@ export default function HomePage() {
                     title: topic.title,
                     prompt: topic.prompt,
                     createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
+                    multiverseXYoloMode: topic.multiverseXYoloMode || false,
                 }));
                 setTopics(formattedTopics);
 
@@ -183,6 +186,40 @@ export default function HomePage() {
             console.error("Error renaming topic:", error);
             toast({
                 title: "Failed to rename topic",
+                description: "Could not update topic. Please try again.",
+                variant: "destructive",
+            });
+        }
+    };
+
+    const handleToggleYoloMode = async (topicId: string, enabled: boolean) => {
+        try {
+            const response = await fetch(`/api/topics?id=${topicId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ multiverseXYoloMode: enabled }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to toggle Yolo mode");
+            }
+
+            setTopics((prev) =>
+                prev.map((t) => (t.id === topicId ? { ...t, multiverseXYoloMode: enabled } : t))
+            );
+
+            toast({
+                title: enabled ? "Yolo mode enabled" : "Yolo mode disabled",
+                description: enabled
+                    ? "AI agent will now trade aggressively based on events"
+                    : "AI agent trading has been disabled",
+            });
+        } catch (error) {
+            console.error("Error toggling Yolo mode:", error);
+            toast({
+                title: "Failed to toggle Yolo mode",
                 description: "Could not update topic. Please try again.",
                 variant: "destructive",
             });
@@ -309,6 +346,7 @@ export default function HomePage() {
                     onNewChat={handleBack}
                     onDeleteTopic={handleDeleteTopic}
                     onRenameTopic={handleRenameTopic}
+                    onToggleYoloMode={handleToggleYoloMode}
                 />
             </SlidingSidebar>
 
