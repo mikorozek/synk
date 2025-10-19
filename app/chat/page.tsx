@@ -87,60 +87,6 @@ export default function HomePage() {
     }, [toast]);
 
 
-            // Load topics
-            const topicsResponse = await fetch("/api/topics");
-            if (topicsResponse.ok) {
-                const apiTopics = await topicsResponse.json();
-                const formattedTopics = apiTopics.map((topic: any) => ({
-                    id: topic.id.toString(),
-                    title: topic.title,
-                    prompt: topic.prompt,
-                    createdAt: topic.createdAt ? new Date(topic.createdAt) : new Date(),
-                    multiverseXYoloMode: topic.multiverseXYoloMode || false,
-                }));
-                setTopics(formattedTopics);
-            }
-
-                // Also reload events to capture any new events
-                await loadEvents();
-
-                // Don't auto-select the topic - let the user click the "Go to" button instead
-                // This allows them to see the completion message and choose when to proceed
-
-                toast({
-                    title: "Failed to load data",
-                    description: "Could not connect to the server",
-                    variant: "destructive",
-                });
-            }
-        } finally {
-            if (!silent) {
-                setIsRefreshing(false);
-            }
-        }
-    }, [toast]);
-
-    // Initial load
-    useEffect(() => {
-        loadData(false);
-    }, [loadData]);
-
-    // Setup polling
-    useEffect(() => {
-        // Start polling
-        pollingIntervalRef.current = setInterval(() => {
-            loadData(true); // Silent refresh
-        }, POLLING_INTERVAL);
-
-        // Cleanup on unmount
-        return () => {
-            if (pollingIntervalRef.current) {
-                clearInterval(pollingIntervalRef.current);
-            }
-        };
-    }, [loadData]);
-
-
     const handleCreateTopic = async (title: string, prompt: string) => {
         // This is called by ChatFlowWrapper after the topic has already been created
         // We just need to update the local state
@@ -404,37 +350,7 @@ export default function HomePage() {
                     onNewChat={handleBack}
                     onDeleteTopic={handleDeleteTopic}
                     onRenameTopic={handleRenameTopic}
-                    onTo
-40
- 
-                }));
-41
- 
-                setNotifications(formattedNotifications);
-42
- 
-            }
-43
- 
-        } catch (error) {
-44
- 
-            console.error("Error loading events from API:", error);
-45
- 
-        }
-46
- 
-    };
-47
- 
-​
-48
- 
-    useEffect(() => {
-49
- 
-        const loadData = async () => {ggleYoloMode={handleToggleYoloMode}
+                    onToggleYoloMode={handleToggleYoloMode}
                 />
             </SlidingSidebar>
 
