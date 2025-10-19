@@ -1,0 +1,21 @@
+services:
+  yolo-trader:
+    build: .
+    container_name: multiverse-yolo-trader
+    network_mode: host
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NETWORK=${NETWORK}
+      - PROXY_URL=${PROXY_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./wallet.pem:/app/wallet.pem:ro
+      - ./.env:/app/.env:ro
+    command: >
+      sh -c "
+      echo '🔧 Setting up mock data...' &&
+      python mock_setup.py || echo '⚠️  Mock setup skipped (tables may not exist yet)' &&
+      echo '🚀 Starting YOLO trader...' &&
+      python -m yolo_trader
+      "
+    restart: unless-stopped
