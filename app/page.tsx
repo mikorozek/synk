@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import { SlidingSidebar } from "@/components/sliding-sidebar";
 import { TopicsSidebar } from "@/components/topics-sidebar";
-import { TopicInput } from "@/components/topic-input";
+import { ChatFlowWrapper } from "@/components/chat-flow-wrapper";
 import { TopicBoard } from "@/components/topic-board";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useToast } from "@/hooks/use-toast";
@@ -226,7 +226,7 @@ export default function HomePage() {
                         onMarkAsRead={handleMarkAsRead}
                     />
                 ) : (
-                    <TopicInput onCreateTopic={handleCreateTopic} />
+                    <ChatFlowWrapper onCreateTopic={handleCreateTopic} />
                 )}
             </main>
         </div>

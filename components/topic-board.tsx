@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { Topic, Notification } from "@/lib/types";
 import {
   Card,
@@ -11,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TopicBoardProps {
@@ -27,9 +28,53 @@ export function TopicBoard({
   onBack,
   onMarkAsRead,
 }: TopicBoardProps) {
-  const topicNotifications = notifications
-    .filter((n) => n.topicId === topic.id)
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  const [topicNotifications, setTopicNotifications] = useState<Notification[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTopicEvents = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`/api/events?topicId=${topic.id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+
+        const apiEvents = await response.json();
+
+        // Transform API events to Notification format
+        const fetchedNotifications: Notification[] = apiEvents.map((event: any) => ({
+          id: event.id.toString(),
+          topicId: event.topicId.toString(),
+          title: event.title,
+          content: event.summary || "",
+          source: "Event Monitor",
+          url: event.eventUrl,
+          createdAt: new Date(event.createdAt),
+          isRead: false,
+        }));
+
+        // Sort by newest first
+        const sorted = fetchedNotifications.sort(
+          (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+        );
+
+        setTopicNotifications(sorted);
+      } catch (error) {
+        console.error("Error fetching topic events:", error);
+        // Fallback to passed notifications if fetch fails
+        const fallback = notifications
+          .filter((n) => n.topicId === topic.id)
+          .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+        setTopicNotifications(fallback);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTopicEvents();
+  }, [topic.id, notifications]);
 
   return (
     <div className="w-full max-w-5xl mx-auto">
@@ -55,7 +100,14 @@ export function TopicBoard({
 
       <ScrollArea className="h-[calc(100vh-280px)]">
         <div className="space-y-4">
-          {topicNotifications.length === 0 ? (
+          {isLoading ? (
+            <Card className="border-dashed">
+              <CardContent className="pt-12 pb-12 text-center">
+                <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground">Loading events...</p>
+              </CardContent>
+            </Card>
+          ) : topicNotifications.length === 0 ? (
             <Card className="border-dashed">
               <CardContent className="pt-12 pb-12 text-center">
                 <p className="text-muted-foreground">
